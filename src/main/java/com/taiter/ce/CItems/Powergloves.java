@@ -76,9 +76,9 @@ public class Powergloves extends CItem {
                                 if (player.getPassengers().contains(clicked)) {
                                     player.setMetadata("ce." + getOriginalName(), new FixedMetadataValue(main, true));
                                     if (clicked.getCustomName() == null) {
-                                        player.sendMessage("You catched " + clicked.getName() + "! Right click to throw it!");
+                                        player.sendMessage("You catched " + clicked.getName() + "! Right click to throw!");
                                     } else {
-                                        player.sendMessage("You catched " + clicked.getCustomName() + "! Right click to throw it!");
+                                        player.sendMessage("You catched " + clicked.getCustomName() + "! Right click to throw!");
                                     }
                                     return;
                                 }
