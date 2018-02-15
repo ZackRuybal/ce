@@ -37,52 +37,11 @@ import com.taiter.ce.Main;
 public class EnchantManager {
 
     private static Set<CEnchantment> enchantments = new LinkedHashSet<CEnchantment>();
-    private static Enchantment glowEnchantment;
     private static int maxEnchants = -1;
 
     private static String lorePrefix;
     private static String enchantBookName;
 
-    static {
-        //Load the glow enchantment
-        glowEnchantment = registerGlowEnchantment();
-    }
-
-    @SuppressWarnings("deprecation")
-    private static Enchantment registerGlowEnchantment() {
-        int id = Main.config.getInt("Global.Enchantments.GlowEnchantmentID");
-        Enchantment glow = Enchantment.getById(id);
-        if (glow != null)
-            if (glow.getName().equals("Custom Enchantment"))
-                return glow;
-            else
-                id = Enchantment.values()[Enchantment.values().length - 1].getId() + 1;
-
-        Boolean forced = false;
-        if (!Enchantment.isAcceptingRegistrations()) //Allow new enchantments to be registered again
-            try {
-                Field f = Enchantment.class.getDeclaredField("acceptingNew");
-                f.setAccessible(true);
-                f.set(null, true);
-                forced = true;
-            } catch (Exception ex) {
-            }
-
-        try {
-            glow = new GlowEnchantment(100);
-            Enchantment.registerEnchantment(glow);
-        } catch (Exception ex) {
-        }
-
-        if (forced) //Revert change
-            try {
-                Field f = Enchantment.class.getDeclaredField("acceptingNew");
-                f.set(null, false);
-                f.setAccessible(false);
-            } catch (Exception ex) {
-            }
-        return glow;
-    }
 
     public static ItemStack addEnchant(ItemStack item, CEnchantment ce) {
         return addEnchant(item, ce, 1);
@@ -109,7 +68,6 @@ public class EnchantManager {
         lore.add(ce.getDisplayName() + " " + intToLevel(level));
         im.setLore(lore);
         item.setItemMeta(im);
-        item.addUnsafeEnchantment(glowEnchantment, 0);
         return item;
     }
 
@@ -137,7 +95,6 @@ public class EnchantManager {
         }
         im.setLore(lore);
         item.setItemMeta(im);
-        item.addUnsafeEnchantment(glowEnchantment, 0);
         return item;
     }
 
@@ -160,8 +117,6 @@ public class EnchantManager {
                 lore.remove(s);
                 im.setLore(lore);
                 item.setItemMeta(im);
-                if (item.getEnchantments().containsKey(glowEnchantment))
-                    item.removeEnchantment(glowEnchantment);
                 return;
             }
     }
@@ -315,10 +270,6 @@ public class EnchantManager {
         return maxEnchants;
     }
 
-    public static Enchantment getGlowEnchantment() {
-        return glowEnchantment;
-    }
-
     /*
      * This returns the enchantment level of the CE identified by checkEnchant
      */
@@ -397,7 +348,6 @@ public class EnchantManager {
         im.setLore(Arrays.asList(new String[] { lorePrefix + ce.getDisplayName() + " " + intToLevel(level) }));
         im.setDisplayName(enchantBookName);
         item.setItemMeta(im);
-        item.addUnsafeEnchantment(glowEnchantment, 0);
         return item;
     }
 
@@ -411,7 +361,6 @@ public class EnchantManager {
         im.setLore(lore);
         im.setDisplayName(enchantBookName);
         item.setItemMeta(im);
-        item.addUnsafeEnchantment(glowEnchantment, 0);
         return item;
     }
 

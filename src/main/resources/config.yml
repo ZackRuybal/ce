@@ -21,7 +21,6 @@ Global:
   CEnchantmentColor: GRAY
   CEnchantmentTable: true
   CEnchantingProbability: 10
-  GlowEnchantmentID: 100
   MaximumCustomEnchantments: 1000
   UseCustomEnchantmentProbability: false
   RequirePermissions: true

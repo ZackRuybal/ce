@@ -579,8 +579,6 @@ public class CEListener implements Listener {
                         lore.add(ce.getDisplayName() + " I");
                         im.setLore(lore);
                         inHand.setItemMeta(im);
-                        if (!inHand.containsEnchantment(EnchantManager.getGlowEnchantment()))
-                            inHand.addUnsafeEnchantment(EnchantManager.getGlowEnchantment(), 0);
                         return;
 
                     } else {
