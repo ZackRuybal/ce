@@ -19,15 +19,14 @@ package com.taiter.ce.Enchantments.Armor;
 */
 
 
-
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Tools;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import com.taiter.ce.Enchantments.CEnchantment;
 
 
 
@@ -52,8 +51,8 @@ public class Endershift extends CEnchantment {
 		EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
 		Player player = (Player) event.getEntity();
 		if(player.getHealth() <= trigger) {
-			player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, duration * level, strength + level - 1));
-			player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, duration * level, strength + level - 1));
+			Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.SPEED, duration * level, strength + level - 1));
+			Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.ABSORPTION, duration * level, strength + level - 1));
 			player.sendMessage("You feel a rush of energy coming from your armor!");
 			generateCooldown(player, cooldown);
 		}

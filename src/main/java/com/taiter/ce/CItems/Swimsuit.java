@@ -20,6 +20,7 @@ package com.taiter.ce.CItems;
 
 
 
+import com.taiter.ce.Tools;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -64,8 +65,8 @@ public class Swimsuit extends CItem {
 						if(player.getLocation().getBlock().getType().equals(Material.WATER) || player.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)) {
 							if((player.getEquipment().getHelmet() != null && player.getEquipment().getHelmet().hasItemMeta() && player.getEquipment().getHelmet().getItemMeta().hasDisplayName() && player.getEquipment().getHelmet().getItemMeta().getDisplayName().equals(parts[0])) || (player.getEquipment().getChestplate() != null && player.getEquipment().getChestplate().hasItemMeta() && player.getEquipment().getChestplate().getItemMeta().hasDisplayName() && player.getEquipment().getChestplate().getItemMeta().getDisplayName().equals(parts[1])) || (player.getEquipment().getLeggings() != null && player.getEquipment().getLeggings().hasItemMeta() && player.getEquipment().getLeggings().getItemMeta().hasDisplayName() && player.getEquipment().getLeggings().getItemMeta().getDisplayName().equals(parts[2])) || (player.getEquipment().getBoots() != null && player.getEquipment().getBoots().hasItemMeta() && player.getEquipment().getBoots().getItemMeta().hasDisplayName() && player.getEquipment().getBoots().getItemMeta().getDisplayName().equals(parts[3]))) {
 								player.setRemainingAir(player.getMaximumAir());
-								player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 120, SpeedBoostLevel), true);
-								player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, DamageBoostLevel), true);
+								Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.SPEED, 120, SpeedBoostLevel));
+								Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, DamageBoostLevel));
 
 							} else {
 								removeLock(player);

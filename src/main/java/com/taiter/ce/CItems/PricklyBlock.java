@@ -19,6 +19,7 @@ package com.taiter.ce.CItems;
 */
 
 
+import com.taiter.ce.Tools;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -64,7 +65,7 @@ public class PricklyBlock extends CItem {
 			if(!player.getGameMode().equals(GameMode.CREATIVE) && !player.hasPotionEffect(PotionEffectType.CONFUSION)) {
 				player.damage(Damage);
 				player.sendMessage(ChatColor.DARK_GREEN + "A nearbly Block is hurting you!");
-				player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, NauseaDuration, NauseaLevel));
+				Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.CONFUSION, NauseaDuration, NauseaLevel));
 			}
 		}
 		return false;

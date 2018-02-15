@@ -1,5 +1,8 @@
 package com.taiter.ce.Enchantments.Global;
 
+import com.taiter.ce.EffectManager;
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Tools;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
@@ -7,9 +10,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import com.taiter.ce.EffectManager;
-import com.taiter.ce.Enchantments.CEnchantment;
 
 
 
@@ -34,8 +34,8 @@ public class Cripple extends CEnchantment {
 
 			EffectManager.playSound(target.getLocation(), Sound.ENTITY_PLAYER_HURT, 1f, 0.4f);
 			EffectManager.playSound(target.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.1f, 2f);
-			target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, duration * level, 0));
-			target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration * level, strength + level));
+			Tools.addPotionEffect(target, new PotionEffect(PotionEffectType.CONFUSION, duration * level, 0));
+			Tools.addPotionEffect(target, new PotionEffect(PotionEffectType.SLOW, duration * level, strength + level));
 
 		}
 	}

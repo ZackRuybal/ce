@@ -32,6 +32,7 @@ import org.bukkit.*;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Firework;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -39,6 +40,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
@@ -969,5 +971,12 @@ public class Tools {
         }
 
         return locs;
+    }
+
+    public static void addPotionEffect(LivingEntity target, PotionEffect effect) {
+        PotionEffect e = target.getPotionEffect(effect.getType());
+        if (e == null || e.getAmplifier() < effect.getAmplifier() || (e.getAmplifier() == effect.getAmplifier() && e.getDuration() <= ((effect.getDuration() / 4) * 3))) {
+            target.addPotionEffect(effect, true);
+        }
     }
 }

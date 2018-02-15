@@ -18,11 +18,9 @@ package com.taiter.ce.Enchantments.Global;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
+import com.taiter.ce.EffectManager;
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Tools;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -38,9 +36,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.taiter.ce.EffectManager;
-import com.taiter.ce.Tools;
-import com.taiter.ce.Enchantments.CEnchantment;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
 
 public class IceAspect extends CEnchantment {
 
@@ -71,7 +70,7 @@ public class IceAspect extends CEnchantment {
         int i = Tools.random.nextInt(100);
 
         if (i < chanceFreeze) {
-            ((LivingEntity) event.getEntity()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, SlowDuration, SlowStrength, false), true);
+            Tools.addPotionEffect(((LivingEntity) event.getEntity()), new PotionEffect(PotionEffectType.SLOW, SlowDuration, SlowStrength));
             EffectManager.playSound(event.getEntity().getLocation(), Sound.BLOCK_SNOW_BREAK, 0.6f, 2f);
         }
         if (specialFreeze) {
@@ -85,7 +84,7 @@ public class IceAspect extends CEnchantment {
                     else
                         p = (Player) ((Projectile) event.getDamager()).getShooter();
 
-                    ent.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, SpecialFreezeDuration + 20, 10));
+                    Tools.addPotionEffect(ent, new PotionEffect(PotionEffectType.SLOW, SpecialFreezeDuration + 20, 10));
                     final HashMap<Block, String> list = getIgloo(ent.getLocation(), 3, p);
 
                     generateCooldown(p, SpecialFreezeDuration);

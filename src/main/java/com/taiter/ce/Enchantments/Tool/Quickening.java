@@ -19,15 +19,14 @@ package com.taiter.ce.Enchantments.Tool;
 */
 
 
-
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Tools;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import com.taiter.ce.Enchantments.CEnchantment;
 
 
 
@@ -49,7 +48,7 @@ public class Quickening extends CEnchantment {
 		BlockBreakEvent event = (BlockBreakEvent) e;
 		Player player = event.getPlayer();
 		
-		player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Duration, Strength+level-1), false);
+		Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.SPEED, Duration, Strength + level - 1));
 	}
 	
 	@Override

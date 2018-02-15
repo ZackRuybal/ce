@@ -19,6 +19,7 @@ package com.taiter.ce.CItems;
 */
 
 
+import com.taiter.ce.Tools;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -48,8 +49,8 @@ public class DruidBoots extends CItem {
 		
 		Material t = player.getLocation().getBlock().getRelative(0,-1,0).getLocation().getBlock().getType();
 		if(t.equals(Material.GRASS) || t.equals(Material.DIRT) || t.toString().contains("LEAVES")) {
-			player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, SpeedDuration , SpeedLevel), true);
-			player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, RegenerationDuration , RegenerationLevel), true);
+			Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.SPEED, SpeedDuration, SpeedLevel));
+			Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.REGENERATION, RegenerationDuration, RegenerationLevel));
 		}
 			
 		return true;

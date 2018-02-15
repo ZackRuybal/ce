@@ -19,15 +19,14 @@ package com.taiter.ce.Enchantments.Bow;
 */
 
 
-
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Tools;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import com.taiter.ce.Enchantments.CEnchantment;
 
 
 
@@ -52,9 +51,9 @@ public class Paralyze extends CEnchantment {
 		if(e instanceof EntityDamageByEntityEvent) {
 		EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
 		LivingEntity target = (LivingEntity) event.getEntity();
-		target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration + (level-1)*20, strength + level-1), true);
-		target.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, duration + (level-1)*20, 1), true);
-		target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, duration + (level-1)*20, strength + level-1), true);
+			Tools.addPotionEffect(target, new PotionEffect(PotionEffectType.SLOW, duration + (level - 1) * 20, strength + level - 1));
+			Tools.addPotionEffect(target, new PotionEffect(PotionEffectType.BLINDNESS, duration + (level - 1) * 20, 1));
+			Tools.addPotionEffect(target, new PotionEffect(PotionEffectType.WEAKNESS, duration + (level - 1) * 20, strength + level - 1));
 		}
 	}
 

@@ -20,6 +20,7 @@ package com.taiter.ce.CItems;
 
 
 
+import com.taiter.ce.Tools;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -53,7 +54,7 @@ public class PoisonIvy extends CItem {
 			e.getBlock().setMetadata("ce.mine", new FixedMetadataValue(main, getOriginalName()));
 		} else if(event instanceof PlayerMoveEvent) {
 			if(!player.hasPotionEffect(PotionEffectType.POISON)) {
-				player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, PoisonDuration, PoisonLevel));
+				Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.POISON, PoisonDuration, PoisonLevel));
 				player.sendMessage(ChatColor.DARK_GREEN + "You have touched Poison Ivy!");
 			}
 		}

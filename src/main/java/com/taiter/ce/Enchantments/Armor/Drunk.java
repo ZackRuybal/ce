@@ -18,14 +18,14 @@ package com.taiter.ce.Enchantments.Armor;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Tools;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import com.taiter.ce.Enchantments.CEnchantment;
 
 public class Drunk extends CEnchantment {
 
@@ -43,9 +43,9 @@ public class Drunk extends CEnchantment {
     public void effect(Event e, ItemStack item, int level) {
         EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
         LivingEntity target = (LivingEntity) event.getDamager();
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, duration * level, strength + level));
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, duration * level, strength + level));
-        target.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, duration * level, 0));
+        Tools.addPotionEffect(target, new PotionEffect(PotionEffectType.SLOW, duration * level, strength + level));
+        Tools.addPotionEffect(target, new PotionEffect(PotionEffectType.SLOW_DIGGING, duration * level, strength + level));
+        Tools.addPotionEffect(target, new PotionEffect(PotionEffectType.CONFUSION, duration * level, 0));
     }
 
     @Override

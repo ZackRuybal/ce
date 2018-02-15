@@ -1,5 +1,7 @@
 package com.taiter.ce.Enchantments.Armor;
 
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Tools;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -7,8 +9,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import com.taiter.ce.Enchantments.CEnchantment;
 
 public class Cloaking extends CEnchantment {
 
@@ -26,7 +26,7 @@ public class Cloaking extends CEnchantment {
     public void effect(Event e, ItemStack item, int level) {
         EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
         Player player = (Player) event.getEntity();
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, duration * level, 0));
+        Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.INVISIBILITY, duration * level, 0));
         player.sendMessage(ChatColor.DARK_GRAY + "You have become invisible!");
         generateCooldown(player, cooldown);
     }

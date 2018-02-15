@@ -66,11 +66,7 @@ public class CEventHandler extends BukkitRunnable{
                         if (EnchantManager.containsEnchantment(s, (CEnchantment) c)) {
                             int level = EnchantManager.getLevel(s);
                             for (PotionEffectType pt : c.getPotionEffectsOnWear().keySet()) {
-                                int effectLevel = c.getPotionEffectsOnWear().get(pt) + level - 2;
-                                PotionEffect effect = player.getPotionEffect(pt);
-                                if (effect == null || effect.getAmplifier() < effectLevel || effect.getDuration() <= 240) {
-                                    player.addPotionEffect(new PotionEffect(pt, 320, effectLevel), true);
-                                }
+                                Tools.addPotionEffect(player, new PotionEffect(pt, 340, c.getPotionEffectsOnWear().get(pt) + level - 2));
                             }
                         }
                     }

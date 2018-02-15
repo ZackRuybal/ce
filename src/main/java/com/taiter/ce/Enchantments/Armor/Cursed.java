@@ -19,15 +19,14 @@ package com.taiter.ce.Enchantments.Armor;
 */
 
 
-
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Tools;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import com.taiter.ce.Enchantments.CEnchantment;
 
 
 
@@ -46,7 +45,7 @@ public class Cursed extends CEnchantment {
 	@Override
 	public void effect(Event e, ItemStack item, int level) {
 		EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
-		((LivingEntity) event.getDamager()).addPotionEffect(new PotionEffect(PotionEffectType.WITHER, duration * level, strength + level));
+		Tools.addPotionEffect(((LivingEntity) event.getDamager()), new PotionEffect(PotionEffectType.WITHER, duration * level, strength + level));
 	}
 
 	@Override

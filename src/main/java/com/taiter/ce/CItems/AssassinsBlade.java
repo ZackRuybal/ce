@@ -19,6 +19,8 @@ package com.taiter.ce.CItems;
 */
 
 
+import com.taiter.ce.EffectManager;
+import com.taiter.ce.Tools;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -30,8 +32,6 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import com.taiter.ce.EffectManager;
 
 
 public class AssassinsBlade extends CItem {
@@ -58,7 +58,7 @@ public class AssassinsBlade extends CItem {
 			if(!player.hasMetadata("ce.assassin"))
 				if(player.isSneaking())
 						  player.setMetadata("ce.assassin", new FixedMetadataValue(main, null));
-						  player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, InvisibilityDuration, 0, true), true);
+			Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.INVISIBILITY, InvisibilityDuration, 0, true));
 						  player.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "You hide in the shadows.");
 						  new BukkitRunnable() {
 							  @Override
@@ -78,7 +78,7 @@ public class AssassinsBlade extends CItem {
 				  player.removeMetadata("ce.assassin", main);
 				  player.removePotionEffect(PotionEffectType.INVISIBILITY);
 				  EffectManager.playSound(e.getEntity().getLocation(), Sound.BLOCK_PISTON_EXTEND, 0.4f, 0.1f);
-				  player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, WeaknessLength, WeaknessLevel, false), true);
+				  Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.WEAKNESS, WeaknessLength, WeaknessLevel, false));
 				  player.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "You are no longer hidden!");
 		   }
 		}

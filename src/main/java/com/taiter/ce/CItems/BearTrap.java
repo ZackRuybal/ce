@@ -19,11 +19,8 @@ package com.taiter.ce.CItems;
 */
 
 
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import com.taiter.ce.Tools;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -32,8 +29,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import com.taiter.ce.Tools;
 
 
 public class BearTrap extends CItem {
@@ -91,9 +86,9 @@ public class BearTrap extends CItem {
 					player.sendMessage(ChatColor.RED + "You triggered a trap, leaving you vulnerable!");
 				}
 				Tools.applyBleed(player, BleedDuration);
-				
-				player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, SlowDuration, SlowLevel));
-				player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, WeaknessDuration, WeaknessLevel));
+
+				Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.SLOW, SlowDuration, SlowLevel));
+				Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.WEAKNESS, WeaknessDuration, WeaknessLevel));
 
 			}
 			

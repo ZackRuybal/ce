@@ -19,15 +19,14 @@ package com.taiter.ce.Enchantments.Global;
 */
 
 
-
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Tools;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import com.taiter.ce.Enchantments.CEnchantment;
 
 
 
@@ -49,7 +48,7 @@ public class Wither extends CEnchantment {
 		EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
 		LivingEntity target = (LivingEntity) event.getEntity();
 
-		target.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, duration * level, strength + level));
+		Tools.addPotionEffect(target, new PotionEffect(PotionEffectType.WITHER, duration * level, strength + level));
 
 	}
 
