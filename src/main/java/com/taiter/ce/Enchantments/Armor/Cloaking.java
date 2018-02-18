@@ -3,6 +3,7 @@ package com.taiter.ce.Enchantments.Armor;
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
 import org.bukkit.ChatColor;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -15,7 +16,7 @@ public class Cloaking extends CEnchantment {
     int duration;
     int cooldown;
 
-    public Cloaking(Application app) {
+    public Cloaking(EnchantmentTarget app) {
         super(app);
         configEntries.put("DurationPerLevel", 60);
         configEntries.put("Cooldown", 200);

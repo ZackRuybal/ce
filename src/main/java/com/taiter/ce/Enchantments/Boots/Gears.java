@@ -20,6 +20,7 @@ package com.taiter.ce.Enchantments.Boots;
 
 
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
@@ -32,7 +33,7 @@ public class Gears extends CEnchantment {
 
 	int	strength;
 
-	public Gears(Application app) {
+	public Gears(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("SpeedBoost", 1);
 		triggers.add(Trigger.WEAR_ITEM);

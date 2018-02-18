@@ -23,6 +23,7 @@ package com.taiter.ce.Enchantments.Bow;
 import java.util.Random;
 
 import org.bukkit.Location;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -40,7 +41,7 @@ public class Firework extends CEnchantment {
 	int		duration;
 	long	delay;
 
-	public Firework(Application app) {
+	public Firework(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("FireworkAmount", 30);
 		configEntries.put("Delay", 5);		

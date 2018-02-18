@@ -25,6 +25,7 @@ import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -38,7 +39,7 @@ import java.util.Random;
 
 public class Smelting extends CEnchantment {
 
-	public Smelting(Application app) {
+	public Smelting(EnchantmentTarget app) {
 		super(app);		
 		triggers.add(Trigger.BLOCK_BROKEN);
 		this.resetMaxLevel();

@@ -25,6 +25,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -52,7 +53,7 @@ public class IceAspect extends CEnchantment {
 
     public List<HashMap<Block, String>> IceLists = new ArrayList<HashMap<Block, String>>();
 
-    public IceAspect(Application app) {
+    public IceAspect(EnchantmentTarget app) {
         super(app);
         configEntries.put("SlowStrength", 5);
         configEntries.put("SlowDuration", 40);

@@ -20,6 +20,7 @@ package com.taiter.ce.Enchantments.Armor;
 
 
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.Event;
@@ -38,7 +39,7 @@ public class SelfDestruct extends CEnchantment {
 
 	int delay;
 
-	public SelfDestruct(Application app) {
+	public SelfDestruct(EnchantmentTarget app) {
 		super(app);		
 		triggers.add(Trigger.DEATH);
 		this.configEntries.put("ExplosionDelay", 40);

@@ -1,6 +1,7 @@
 package com.taiter.ce.Enchantments.Global;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -12,7 +13,7 @@ import com.taiter.ce.Enchantments.CEnchantment;
 public class Disarming extends CEnchantment {
     Boolean pvpOnly = true;
 
-    public Disarming(Application app) {
+    public Disarming(EnchantmentTarget app) {
         super(app);
         configEntries.put("PvpOnly", true);
         triggers.add(Trigger.DAMAGE_GIVEN);

@@ -20,6 +20,7 @@ package com.taiter.ce.Enchantments.Boots;
 
 
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
@@ -32,7 +33,7 @@ public class Springs extends CEnchantment {
 
 	int	strength;
 
-	public Springs(Application app) {
+	public Springs(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("Strength", 4);
 		triggers.add(Trigger.WEAR_ITEM);

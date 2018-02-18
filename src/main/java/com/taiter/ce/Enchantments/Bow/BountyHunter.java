@@ -24,6 +24,7 @@ import com.taiter.ce.Tools;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -42,7 +43,7 @@ public class BountyHunter extends CEnchantment {
 	double ChanceGold;
 	double ChanceIron;
 
-	public BountyHunter(Application app) {
+	public BountyHunter(EnchantmentTarget app) {
 		super(app);		
 		this.configEntries.put("MaximumBounty", 8);
 		this.configEntries.put("Cooldown", 600);

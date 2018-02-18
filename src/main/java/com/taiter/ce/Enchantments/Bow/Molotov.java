@@ -23,6 +23,7 @@ package com.taiter.ce.Enchantments.Bow;
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.event.Event;
@@ -37,7 +38,7 @@ import com.taiter.ce.Enchantments.CEnchantment;
 public class Molotov extends CEnchantment {
 
 
-	public Molotov(Application app) {
+	public Molotov(EnchantmentTarget app) {
 		super(app);		
 		triggers.add(Trigger.SHOOT_BOW);
 		triggers.add(Trigger.DAMAGE_GIVEN);

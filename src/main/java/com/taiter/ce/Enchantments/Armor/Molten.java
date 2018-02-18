@@ -20,6 +20,7 @@ package com.taiter.ce.Enchantments.Armor;
 
 
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -33,7 +34,7 @@ public class Molten extends CEnchantment {
 	
 	int duration;
 
-	public Molten(Application app) {
+	public Molten(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("Duration", 60);
 		triggers.add(Trigger.DAMAGE_TAKEN);

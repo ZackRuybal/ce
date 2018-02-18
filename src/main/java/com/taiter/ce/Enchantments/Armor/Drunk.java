@@ -20,6 +20,7 @@ package com.taiter.ce.Enchantments.Armor;
 
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -32,7 +33,7 @@ public class Drunk extends CEnchantment {
     int duration;
     int strength;
 
-    public Drunk(Application app) {
+    public Drunk(EnchantmentTarget app) {
         super(app);
         configEntries.put("DurationPerLevel", 60);
         configEntries.put("BaseStrength", 1);

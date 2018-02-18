@@ -23,6 +23,7 @@ import com.taiter.ce.Tools;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -37,7 +38,7 @@ public class Explosive extends CEnchantment {
     boolean LargerRadius;
     boolean DropItems;
 
-    public Explosive(Application app) {
+    public Explosive(EnchantmentTarget app) {
         super(app);
         configEntries.put("Radius", 3);
         configEntries.put("LargerRadius", true);

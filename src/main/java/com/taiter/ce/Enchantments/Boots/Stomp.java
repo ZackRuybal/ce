@@ -22,6 +22,7 @@ import com.taiter.ce.EffectManager;
 import com.taiter.ce.Enchantments.CEnchantment;
 import org.bukkit.Effect;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -38,7 +39,7 @@ public class Stomp extends CEnchantment {
     int damageReductionFraction;
     int damageApplicationFraction;
 
-    public Stomp(Application app) {
+    public Stomp(EnchantmentTarget app) {
         super(app);
         configEntries.put("DamageReductionFraction", 4);
         configEntries.put("DamageApplicationFraction", 2);

@@ -21,7 +21,6 @@ package com.taiter.ce;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.taiter.ce.CItems.*;
 import com.taiter.ce.Enchantments.CEnchantment;
-import com.taiter.ce.Enchantments.CEnchantment.Application;
 import com.taiter.ce.Enchantments.EnchantManager;
 import com.taiter.ce.Enchantments.Global.IceAspect;
 import net.milkbowl.vault.economy.Economy;
@@ -31,6 +30,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.inventory.Inventory;
@@ -466,14 +466,14 @@ public final class Main extends JavaPlugin {
                 if (!entryName.contains("$") && entryName.contains("Enchantments") && entryName.endsWith(".class")
                         && !(entryName.contains("CEnchantment") || entryName.contains("EnchantManager") || entryName.contains("GlowEnchantment")))
                     try {
-                        Application app = null;
+                        String  enchantTargetName = null;
                         String className = entryName.replace(".class", "");
 
                         if (entryName.contains("/")) {
-                            app = Application.valueOf(entryName.split("/")[4].toUpperCase());
+                            enchantTargetName = entryName.split("/")[4].toUpperCase();
                             className = className.replaceAll("/", ".");
                         } else if (entryName.contains("\\")) {
-                            app = Application.valueOf(entryName.split("\\\\")[4].toUpperCase());
+                            enchantTargetName = entryName.split("\\\\")[4].toUpperCase();
                             className = className.replaceAll("\\\\", ".");
                         }
                         if (className.contains("Piercing")) {
@@ -485,7 +485,8 @@ public final class Main extends JavaPlugin {
                                 continue;
                             }
                         }
-                        EnchantManager.getEnchantments().add((CEnchantment) classLoader.loadClass(className).getDeclaredConstructor(Application.class).newInstance(app));
+                        EnchantmentTarget target = EnchantmentTarget.valueOf(enchantTargetName.equalsIgnoreCase("Global") ? "ALL" : enchantTargetName.equalsIgnoreCase("Armor") ? "ARMOR" : enchantTargetName.equalsIgnoreCase("Boots") ? "ARMOR_FEET" : enchantTargetName.equalsIgnoreCase("Bow") ? "BOW" : enchantTargetName.equalsIgnoreCase("Helmet") ? "ARMOR_HEAD" : "TOOL");
+                        EnchantManager.getEnchantments().add((CEnchantment) classLoader.loadClass(className).getDeclaredConstructor(EnchantmentTarget.class).newInstance(target));
                     } catch (ClassNotFoundException e) {
                     } // Checked exception, should never be thrown
             }

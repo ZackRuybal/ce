@@ -20,6 +20,7 @@ package com.taiter.ce.Enchantments.Bow;
 
 import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -32,7 +33,7 @@ public class Piercing extends CEnchantment {
 
     private ItemStack[] emptyArmor = new ItemStack[4];
 
-    public Piercing(Application app) {
+    public Piercing(EnchantmentTarget app) {
         super(app);
         triggers.add(Trigger.SHOOT_BOW);
         triggers.add(Trigger.DAMAGE_GIVEN);

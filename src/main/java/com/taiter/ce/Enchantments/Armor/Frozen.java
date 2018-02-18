@@ -21,6 +21,7 @@ package com.taiter.ce.Enchantments.Armor;
 
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -35,7 +36,7 @@ public class Frozen extends CEnchantment {
 	int duration;
 	int strength;
 
-	public Frozen(Application app) {
+	public Frozen(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("Duration", 60);
 		configEntries.put("Strength", 1);

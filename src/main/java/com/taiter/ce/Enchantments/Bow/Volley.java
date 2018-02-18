@@ -19,6 +19,7 @@ import org.bukkit.GameMode;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -34,7 +35,7 @@ public class Volley extends CEnchantment {
     // Constants
     private static final int CONE_DEGREES = 45; // The volley will spawn a cone of CONE_DEGREES in front of the player.
 
-    public Volley(Application app) {
+    public Volley(EnchantmentTarget app) {
         super(app);
         triggers.add(Trigger.SHOOT_BOW); // Shooting a bow triggers a volley (spawning extra arrows)
     }

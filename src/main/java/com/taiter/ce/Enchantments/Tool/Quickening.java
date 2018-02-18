@@ -21,6 +21,7 @@ package com.taiter.ce.Enchantments.Tool;
 
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -36,7 +37,7 @@ public class Quickening extends CEnchantment {
 	int Duration;
 
 	
-	public Quickening(Application app) {
+	public Quickening(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("Strength", 3);
 		configEntries.put("Duration", 40);

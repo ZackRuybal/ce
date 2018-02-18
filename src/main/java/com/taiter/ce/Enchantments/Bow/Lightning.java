@@ -20,6 +20,7 @@ package com.taiter.ce.Enchantments.Bow;
 
 import java.util.Random;
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -31,7 +32,7 @@ public class Lightning extends CEnchantment {
 
     int chance;
 
-    public Lightning(Application app) {
+    public Lightning(EnchantmentTarget app) {
         super(app);
         configEntries.put("LightningChance", 75);
         triggers.add(Trigger.SHOOT_BOW);

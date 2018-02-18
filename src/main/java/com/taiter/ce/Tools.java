@@ -26,10 +26,10 @@ import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.taiter.ce.CBasic.Trigger;
 import com.taiter.ce.CItems.CItem;
 import com.taiter.ce.Enchantments.CEnchantment;
-import com.taiter.ce.Enchantments.CEnchantment.Application;
 import com.taiter.ce.Enchantments.EnchantManager;
 import org.bukkit.*;
 import org.bukkit.FireworkEffect.Type;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
@@ -51,21 +51,8 @@ public class Tools {
     public static Random random = new Random();
 
     //ENCHANTMENTS
-    public static boolean isApplicationCorrect(Application app, Material matToApplyTo) {
-
-        String mat = matToApplyTo.toString();
-
-        if (app == Application.BOW && mat.equals(Material.BOW.toString()))
-            return true;
-        else if (app == Application.BOOTS && mat.endsWith("BOOTS"))
-            return true;
-        else if (app == Application.HELMET && mat.endsWith("HELMET"))
-            return true;
-        else if (app == Application.ARMOR && (mat.endsWith("HELMET") || mat.endsWith("CHESTPLATE") || mat.equals(Material.ELYTRA.toString()) || mat.endsWith("LEGGINGS") || mat.endsWith("BOOTS")))
-            return true;
-        else if (app == Application.TOOL && (mat.endsWith("PICKAXE") || mat.endsWith("SPADE") || mat.endsWith("AXE") || mat.endsWith("HOE")))
-            return true;
-        return false;
+    public static boolean isEnchantmentTargetCorrect(EnchantmentTarget app, Material matToApplyTo) {
+        return app.includes(matToApplyTo) || (app == EnchantmentTarget.ARMOR && matToApplyTo == Material.ELYTRA);
     }
 
     public static CItem getItemByOriginalname(String name) {
@@ -298,7 +285,7 @@ public class Tools {
         int current = 0;
         ItemStack tempItem = new ItemStack(Material.ENCHANTED_BOOK);
         for (CEnchantment ce : EnchantManager.getEnchantments())
-            if (ce.getApplication() == Application.ARMOR) {
+            if (ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR) {
                 tempMeta.setDisplayName(ce.getDisplayName());
                 tempItem.setItemMeta(tempMeta);
                 ArmorMenu.setItem(current, tempItem);
@@ -315,7 +302,7 @@ public class Tools {
 
         current = 0;
         for (CEnchantment ce : EnchantManager.getEnchantments())
-            if (ce.getApplication() == Application.GLOBAL) {
+            if (ce.getEnchantmentTarget() == EnchantmentTarget.ALL) {
                 tempMeta.setDisplayName(ce.getDisplayName());
                 tempItem.setItemMeta(tempMeta);
                 GlobalMenu.setItem(current, tempItem);
@@ -333,7 +320,7 @@ public class Tools {
 
         current = 0;
         for (CEnchantment ce : EnchantManager.getEnchantments())
-            if (ce.getApplication() == Application.TOOL) {
+            if (ce.getEnchantmentTarget() == EnchantmentTarget.TOOL) {
                 tempMeta.setDisplayName(ce.getDisplayName());
                 tempItem.setItemMeta(tempMeta);
                 ToolMenu.setItem(current, tempItem);
@@ -352,7 +339,7 @@ public class Tools {
         current = 0;
         for (CEnchantment ce : EnchantManager.getEnchantments()) {
 
-            if (ce.getApplication() == Application.BOW) {
+            if (ce.getEnchantmentTarget() == EnchantmentTarget.BOW) {
                 tempMeta.setDisplayName(ce.getDisplayName());
                 tempItem.setItemMeta(tempMeta);
                 BowMenu.setItem(current, tempItem);
@@ -371,7 +358,7 @@ public class Tools {
 
         current = 0;
         for (CEnchantment ce : EnchantManager.getEnchantments())
-            if (ce.getApplication() == Application.HELMET) {
+            if (ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_HEAD) {
                 tempMeta.setDisplayName(ce.getDisplayName());
                 tempItem.setItemMeta(tempMeta);
                 HelmetMenu.setItem(current, tempItem);
@@ -389,7 +376,7 @@ public class Tools {
 
         current = 0;
         for (CEnchantment ce : EnchantManager.getEnchantments())
-            if (ce.getApplication() == Application.BOOTS) {
+            if (ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_FEET) {
                 tempMeta.setDisplayName(ce.getDisplayName());
                 tempItem.setItemMeta(tempMeta);
                 BootsMenu.setItem(current, tempItem);
@@ -539,53 +526,56 @@ public class Tools {
         return null;
     }
 
-    public static List<CEnchantment> getEnchantList(Application app) {
+    public static List<CEnchantment> getEnchantList(EnchantmentTarget app) {
         List<CEnchantment> list = new ArrayList<CEnchantment>();
         for (CEnchantment ce : EnchantManager.getEnchantments())
-            if (ce.getApplication() == app)
+            if (ce.getEnchantmentTarget() == app)
                 list.add(ce);
         return list;
     }
 
-    public static HashSet<CEnchantment> getEnchantList(Application app, Player p) {
+    public static HashSet<CEnchantment> getEnchantList(EnchantmentTarget app, Player p) {
         HashSet<CEnchantment> list = new HashSet<CEnchantment>();
         for (CEnchantment ce : EnchantManager.getEnchantments())
-            if (ce.getApplication() == app)
+            if (ce.getEnchantmentTarget() == app)
                 if(!Boolean.parseBoolean(Main.config.getString("Global.Enchantments.RequirePermissions")) || checkPermission(ce, p))
                     list.add(ce);
         return list;
     }
 
-    public static Application getApplicationByMaterial(Material material) {
-
-        String mat = material.toString();
-
-        if (mat.equals(Material.BOW.toString()))
-            return Application.BOW;
-        else if (mat.endsWith("BOOTS"))
-            return Application.BOOTS;
-        else if (mat.endsWith("HELMET"))
-            return Application.HELMET;
-        else if (mat.endsWith("BOOTS") || mat.endsWith("LEGGINGS") || mat.endsWith("CHESTPLATE") || mat.endsWith("HELMET") || mat.equals(Material.ELYTRA.toString()))
-            return Application.ARMOR;
-        else if (mat.endsWith("PICKAXE") || mat.endsWith("SPADE") || mat.endsWith("AXE") || mat.endsWith("HOE"))
-            return Application.TOOL;
-        return Application.GLOBAL;
+    public static EnchantmentTarget getEnchantmentTargetByMaterial(Material material) {
+        if (EnchantmentTarget.BOW.includes(material)) {
+            return EnchantmentTarget.BOW;
+        } else if (EnchantmentTarget.ARMOR_FEET.includes(material)) {
+            return EnchantmentTarget.ARMOR_FEET;
+        } else if (EnchantmentTarget.ARMOR_HEAD.includes(material)) {
+            return EnchantmentTarget.ARMOR_HEAD;
+        } else if (EnchantmentTarget.ARMOR.includes(material)) {
+            return EnchantmentTarget.ARMOR;
+        } else if (EnchantmentTarget.TOOL.includes(material)) {
+            return EnchantmentTarget.TOOL;
+        } else {
+            return EnchantmentTarget.ALL;
+        }
     }
 
     public static boolean isApplicable(ItemStack i, CEnchantment ce) {
-        if ((ce.getApplication() == Application.ARMOR && ce.getApplication() != Application.GLOBAL
-                && (i.getType().toString().endsWith("HELMET") || i.getType().toString().endsWith("CHESTPLATE") || i.getType().toString().endsWith("LEGGINGS")
-                        || i.getType().toString().endsWith("BOOTS") || i.getType().toString().equals(Material.ELYTRA.toString())))
-                || (ce.getApplication() == Application.TOOL && (i.getType().toString().endsWith("PICKAXE") || i.getType().toString().endsWith("SPADE") || i.getType().toString().endsWith("_AXE")
-                        || i.getType().toString().endsWith("HOE")))
-                || (ce.getApplication() == Application.HELMET && ce.getApplication() != Application.GLOBAL && i.getType().toString().endsWith("HELMET"))
-                || (ce.getApplication() == Application.BOOTS && ce.getApplication() != Application.GLOBAL && i.getType().toString().endsWith("BOOTS"))
-                || (ce.getApplication() == Application.BOW && i.getType().equals(Material.BOW)) || ce.getApplication() == Application.GLOBAL)
+        if (ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR && (EnchantmentTarget.ARMOR.includes(i) || i.getType() == Material.ELYTRA)) {
             return true;
-        return false;
-    }
-
+        } else if (ce.getEnchantmentTarget() == EnchantmentTarget.TOOL && EnchantmentTarget.TOOL.includes(i)) {
+            return true;
+        } else if (ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_HEAD && EnchantmentTarget.ARMOR_HEAD.includes(i)) {
+            return true;
+        } else if (ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_FEET && EnchantmentTarget.ARMOR_FEET.includes(i)) {
+            return true;
+        } else if (ce.getEnchantmentTarget() == EnchantmentTarget.BOW && EnchantmentTarget.BOW.includes(i)) {
+            return true;
+        } else if (ce.getEnchantmentTarget() == EnchantmentTarget.ALL && EnchantmentTarget.ALL.includes(i)) {
+            return true;
+        } else {
+            return false;
+        }
+    }    
     // Firework
 
     private static Color fireworkColor(int i) {
@@ -977,6 +967,23 @@ public class Tools {
         PotionEffect e = target.getPotionEffect(effect.getType());
         if (e == null || e.getAmplifier() < effect.getAmplifier() || (e.getAmplifier() == effect.getAmplifier() && e.getDuration() <= ((effect.getDuration() / 4) * 3))) {
             target.addPotionEffect(effect, true);
+        }
+    }
+
+    public static ItemStack getItemFromSlot(Player target, EquipmentSlot slotType) {
+        switch (slotType) {
+            case HEAD:
+                return target.getInventory().getHelmet();
+            case CHEST:
+                return target.getInventory().getChestplate();
+            case LEGS:
+                return target.getInventory().getLeggings();
+            case FEET:
+                return target.getInventory().getBoots();
+            case MAIN_HAND:
+                return target.getInventory().getItemInMainHand();
+            default:
+                return null;
         }
     }
 }

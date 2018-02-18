@@ -2,6 +2,7 @@ package com.taiter.ce.Enchantments.Global;
 
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -17,7 +18,7 @@ public class Vampire extends CEnchantment {
 	int	damageHealFraction;
 	int	cooldown;
 
-	public Vampire(Application app) {
+	public Vampire(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("DamageHealFraction", 2);
 		configEntries.put("Cooldown", 100);

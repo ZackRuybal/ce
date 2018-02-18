@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -40,7 +41,7 @@ public class Implants extends CEnchantment {
 	public int	burstDelay;
 	List<Player> inWater = new ArrayList<Player>();
 
-	public Implants(Application app) {
+	public Implants(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("FoodBurstDelay", 20);
 		triggers.add(Trigger.MOVE);

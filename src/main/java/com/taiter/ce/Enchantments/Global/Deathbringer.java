@@ -1,6 +1,7 @@
 package com.taiter.ce.Enchantments.Global;
 
 import org.bukkit.Sound;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -17,7 +18,7 @@ public class Deathbringer extends CEnchantment {
 
 	int	strength;
 
-	public Deathbringer(Application app) {
+	public Deathbringer(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("TrueDamagePerHit", 2);
 		triggers.add(Trigger.DAMAGE_GIVEN);

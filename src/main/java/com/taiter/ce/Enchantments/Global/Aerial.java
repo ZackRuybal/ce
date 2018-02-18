@@ -1,6 +1,7 @@
 package com.taiter.ce.Enchantments.Global;
 
 import org.bukkit.Sound;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -15,7 +16,7 @@ public class Aerial extends CEnchantment {
 
 	float	DamageIncreasePercentage;
 
-	public Aerial(Application app) {
+	public Aerial(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("DamageIncreasePercentagePerLevel", 10);
 		triggers.add(Trigger.DAMAGE_GIVEN);

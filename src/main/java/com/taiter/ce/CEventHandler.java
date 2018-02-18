@@ -7,10 +7,10 @@ import com.taiter.ce.CItems.NecromancersStaff;
 import com.taiter.ce.CItems.RocketBoots;
 import com.taiter.ce.Enchantments.Bow.Volley;
 import com.taiter.ce.Enchantments.CEnchantment;
-import com.taiter.ce.Enchantments.CEnchantment.Application;
 import com.taiter.ce.Enchantments.EnchantManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -58,12 +58,12 @@ public class CEventHandler extends BukkitRunnable{
     private static boolean disenchanting = Main.config.getBoolean("Global.Runecrafting.Disenchanting");
     private static boolean transform = Main.config.getBoolean("Global.Runecrafting.TransformationEffect");
 
-    public static void handleArmor(Player player, ItemStack item) {
+    public static void handleArmor(Player player, ItemStack item, EquipmentSlot slot) {
         if (item != null && item.getType() != Material.AIR && item.hasItemMeta() && item.getItemMeta().hasLore())
             for (String s : item.getItemMeta().getLore())
                 for (CBasic c : Main.listener.wearItem) {
                     if (c instanceof CEnchantment) {
-                        if (EnchantManager.containsEnchantment(s, (CEnchantment) c)) {
+                        if (EnchantManager.containsEnchantment(s, (CEnchantment) c) && slot.isValid((CEnchantment) c)) {
                             int level = EnchantManager.getLevel(s);
                             for (PotionEffectType pt : c.getPotionEffectsOnWear().keySet()) {
                                 Tools.addPotionEffect(player, new PotionEffect(pt, 340, c.getPotionEffectsOnWear().get(pt) + level - 2));
@@ -77,10 +77,12 @@ public class CEventHandler extends BukkitRunnable{
 
         long time = System.currentTimeMillis();
 
-        for (ItemStack i : toCheck.getInventory().getArmorContents())
-            if (i != null && i.getType() != Material.AIR)
-                handleEventMain(toCheck, i, e, list);
-        handleEventMain(toCheck, toCheck.getInventory().getItemInMainHand(), e, list);
+        for (EquipmentSlot s : EquipmentSlot.values()) {
+            ItemStack i = Tools.getItemFromSlot(toCheck, s);
+            if (i != null && i.getType() != Material.AIR) {
+                handleEventMain(toCheck, i, e, list, s);
+            }
+        }
 
         if (Boolean.parseBoolean(Main.config.getString("Global.Logging.Enabled")) && Boolean.parseBoolean(Main.config.getString("Global.Logging.LogEvents"))) {
             long timeF = (System.currentTimeMillis() - time);
@@ -118,10 +120,10 @@ public class CEventHandler extends BukkitRunnable{
             return;
         }
 
-        HashSet<CEnchantment> list = Tools.getEnchantList(Tools.getApplicationByMaterial(i.getType()), p);
+        HashSet<CEnchantment> list = Tools.getEnchantList(Tools.getEnchantmentTargetByMaterial(i.getType()), p);
 
         if (i.getType().toString().endsWith("_AXE"))
-            list.addAll(Tools.getEnchantList(Application.GLOBAL));
+            list.addAll(Tools.getEnchantList(EnchantmentTarget.ALL));
 
         if (list.isEmpty())
             return;
@@ -237,7 +239,7 @@ public class CEventHandler extends BukkitRunnable{
         }
     }
 
-    public static void handleEventMain(Player toCheck, ItemStack i, Event e, HashSet<CBasic> list) {
+    public static void handleEventMain(Player toCheck, ItemStack i, Event e, HashSet<CBasic> list, EquipmentSlot slot) {
         if (i != null && i.getType() != Material.AIR && i.hasItemMeta()) {
             ItemMeta im = i.getItemMeta();
             if (!list.isEmpty()) {
@@ -256,7 +258,7 @@ public class CEventHandler extends BukkitRunnable{
                             CEnchantment ce = (CEnchantment) cb;
 
                             for (String s : lore)
-                                if (Tools.isApplicable(i, ce)) {
+                                if (slot.isValid(ce)) {
                                 	
                                     if (EnchantManager.containsEnchantment(s, ce)) {
 
@@ -738,8 +740,8 @@ public class CEventHandler extends BukkitRunnable{
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!player.isDead()) {
-                for (ItemStack item : player.getInventory().getArmorContents()) {
-                    handleArmor(player, item);
+                for (EquipmentSlot slot : EquipmentSlot.values()) {
+                    handleArmor(player, Tools.getItemFromSlot(player, slot), slot);
                 }
             }
         }

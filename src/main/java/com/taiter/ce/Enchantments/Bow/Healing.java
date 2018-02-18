@@ -22,6 +22,7 @@ package com.taiter.ce.Enchantments.Bow;
 import com.taiter.ce.Enchantments.CEnchantment;
 import org.bukkit.Effect;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -31,7 +32,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Healing extends CEnchantment {
 
-	public Healing(Application app) {
+	public Healing(EnchantmentTarget app) {
 		super(app);		
 		triggers.add(Trigger.SHOOT_BOW);
 		triggers.add(Trigger.DAMAGE_GIVEN);

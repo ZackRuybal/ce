@@ -24,6 +24,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.TNTPrimed;
@@ -45,7 +46,7 @@ public class Bombardment extends CEnchantment {
 	int	Volume;
 	int TNTAmount;
 
-	public Bombardment(Application app) {
+	public Bombardment(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("BaseTNTAmount", 3);
 		configEntries.put("Volume", 1);

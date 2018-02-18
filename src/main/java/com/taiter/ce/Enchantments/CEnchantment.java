@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
@@ -35,15 +36,6 @@ import com.taiter.ce.Tools;
 
 public abstract class CEnchantment extends CBasic {
 
-    static public enum Application {
-        ARMOR,
-        GLOBAL,
-        BOW,
-        BOOTS,
-        HELMET,
-        TOOL
-    }
-
     private static int amountGlobal = -1;
     private static int amountBow = 0;
     private static int amountTool = 0;
@@ -51,7 +43,7 @@ public abstract class CEnchantment extends CBasic {
     private static int amountHelmet = 0;
     private static int amountBoots = 0;
 
-    Application app;
+    EnchantmentTarget app;
     double enchantProbability;
     int enchantmentMaxLevel;
     int occurrenceChance;
@@ -60,7 +52,7 @@ public abstract class CEnchantment extends CBasic {
     List<Double> costPerLevel;
     private boolean hasRetriedConfig;
 
-    public Application getApplication() {
+    public EnchantmentTarget getEnchantmentTarget() {
         return this.app;
     }
 
@@ -90,7 +82,7 @@ public abstract class CEnchantment extends CBasic {
         return costPerLevel.get(level - 1);
     }
 
-    public CEnchantment(Application app) {
+    public CEnchantment(EnchantmentTarget app) {
         this.typeString = "Enchantment";
         this.app = app;
 
@@ -135,19 +127,19 @@ public abstract class CEnchantment extends CBasic {
     private void writeEnchantmentAmounts() {
         amountGlobal = 0;
         for (CEnchantment ce : EnchantManager.getEnchantments())
-            if (ce.getApplication() == Application.GLOBAL) {
+            if (ce.getEnchantmentTarget() == EnchantmentTarget.ALL) {
                 amountGlobal++;
                 if (ce.triggers.contains(Trigger.SHOOT_BOW))
                     amountBow++;
-            } else if (ce.getApplication() == Application.BOW)
+            } else if (ce.getEnchantmentTarget() == EnchantmentTarget.BOW)
                 amountBow++;
-            else if (ce.getApplication() == Application.TOOL)
+            else if (ce.getEnchantmentTarget() == EnchantmentTarget.TOOL)
                 amountTool++;
-            else if (ce.getApplication() == Application.BOOTS)
+            else if (ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_FEET)
                 amountBoots++;
-            else if (ce.getApplication() == Application.HELMET)
+            else if (ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_HEAD)
                 amountHelmet++;
-            else if (ce.getApplication() == Application.ARMOR) {
+            else if (ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR) {
                 amountArmor++;
                 amountHelmet++;
                 amountBoots++;
@@ -155,16 +147,16 @@ public abstract class CEnchantment extends CBasic {
     }
 
     private double getEnchantmentProbability() {
-        double enchantmentAmount = 0; //Amount of possible custom enchantments that COULD be applied with this enchantments application
-        if (this.app == Application.ARMOR)
+        double enchantmentAmount = 0; //Amount of possible custom enchantments that COULD be applied with this enchantments EnchantmentTarget
+        if (this.app == EnchantmentTarget.ARMOR)
             enchantmentAmount = amountArmor;
-        else if (this.app == Application.HELMET)
+        else if (this.app == EnchantmentTarget.ARMOR_HEAD)
             enchantmentAmount = amountHelmet;
-        else if (this.app == Application.BOOTS)
+        else if (this.app == EnchantmentTarget.ARMOR_FEET)
             enchantmentAmount = amountBoots;
-        else if (this.app == Application.TOOL)
+        else if (this.app == EnchantmentTarget.TOOL)
             enchantmentAmount = amountTool;
-        else if (this.app == Application.BOW)
+        else if (this.app == EnchantmentTarget.BOW)
             enchantmentAmount = amountBow;
         else
             enchantmentAmount = amountGlobal;

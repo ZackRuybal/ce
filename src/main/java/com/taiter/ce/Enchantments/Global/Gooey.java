@@ -21,6 +21,7 @@ package com.taiter.ce.Enchantments.Global;
 
 
 import org.bukkit.Effect;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -34,7 +35,7 @@ public class Gooey extends CEnchantment {
 
 	int	strength;
 
-	public Gooey(Application app) {
+	public Gooey(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("HeightMultiplier", 3);
 		triggers.add(Trigger.DAMAGE_GIVEN);

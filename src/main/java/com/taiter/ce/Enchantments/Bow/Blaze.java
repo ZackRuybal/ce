@@ -1,5 +1,6 @@
 package com.taiter.ce.Enchantments.Bow;
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.SmallFireball;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityShootBowEvent;
@@ -9,7 +10,7 @@ import com.taiter.ce.Enchantments.CEnchantment;
 
 public class Blaze extends CEnchantment {
 
-    public Blaze(Application app) {
+    public Blaze(EnchantmentTarget app) {
         super(app);
         triggers.add(Trigger.SHOOT_BOW);
         this.resetMaxLevel();

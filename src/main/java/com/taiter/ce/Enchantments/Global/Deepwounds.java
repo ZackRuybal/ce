@@ -22,6 +22,7 @@ package com.taiter.ce.Enchantments.Global;
 
 import java.util.Random;
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -37,7 +38,7 @@ public class Deepwounds extends CEnchantment {
 	int				duration;
 	int				rand;
 
-	public Deepwounds(Application app) {
+	public Deepwounds(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("Duration", 20);
 		configEntries.put("BleedChance", 20);

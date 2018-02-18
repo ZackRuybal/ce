@@ -20,6 +20,7 @@ package com.taiter.ce.Enchantments.Helmet;
 
 
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
@@ -31,7 +32,7 @@ import com.taiter.ce.Enchantments.CEnchantment;
 public class Glowing extends CEnchantment {
 
 
-	public Glowing(Application app) {
+	public Glowing(EnchantmentTarget app) {
 		super(app);		
 		triggers.add(Trigger.WEAR_ITEM);
 		this.resetMaxLevel();

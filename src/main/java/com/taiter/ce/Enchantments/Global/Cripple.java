@@ -4,6 +4,7 @@ import com.taiter.ce.EffectManager;
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -18,7 +19,7 @@ public class Cripple extends CEnchantment {
 	int	duration;
 	int	strength;
 
-	public Cripple(Application app) {
+	public Cripple(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("Duration", 100);
 		configEntries.put("Strength", 1);

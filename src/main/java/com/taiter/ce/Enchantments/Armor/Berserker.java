@@ -21,6 +21,7 @@ package com.taiter.ce.Enchantments.Armor;
 
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -37,7 +38,7 @@ public class Berserker extends CEnchantment {
 	int trigger;
 	int cooldown;
 
-	public Berserker(Application app) {
+	public Berserker(EnchantmentTarget app) {
 		super(app);
 		configEntries.put("DurationPerLevel", 200);
 		configEntries.put("BaseStrength", 5);

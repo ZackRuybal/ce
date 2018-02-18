@@ -4,6 +4,7 @@ import com.taiter.ce.EffectManager;
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -19,7 +20,7 @@ public class Block extends CEnchantment {
 	int	strength;
 	int	cooldown;
 
-	public Block(Application app) {
+	public Block(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("Strength", 1);
 		configEntries.put("Cooldown", 600);

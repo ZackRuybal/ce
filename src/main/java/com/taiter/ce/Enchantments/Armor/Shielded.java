@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -47,7 +48,7 @@ public class Shielded extends CEnchantment {
         }
     }
 
-    public Shielded(Application app) {
+    public Shielded(EnchantmentTarget app) {
         super(app);
         configEntries.put("BaseStrength", 4);
         configEntries.put("StrengthPerLevel", 2);

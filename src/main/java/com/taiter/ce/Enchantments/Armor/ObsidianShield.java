@@ -20,6 +20,7 @@ package com.taiter.ce.Enchantments.Armor;
 
 
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
@@ -31,7 +32,7 @@ import com.taiter.ce.Enchantments.CEnchantment;
 public class ObsidianShield extends CEnchantment {
 
 
-	public ObsidianShield(Application app) {
+	public ObsidianShield(EnchantmentTarget app) {
 		super(app);		
 		triggers.add(Trigger.WEAR_ITEM);
 	}

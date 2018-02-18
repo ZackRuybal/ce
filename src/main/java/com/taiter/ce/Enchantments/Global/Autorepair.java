@@ -20,6 +20,7 @@ package com.taiter.ce.Enchantments.Global;
 
 
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -36,7 +37,7 @@ public class Autorepair extends CEnchantment {
 	boolean healFully;
 	int cooldown;
 	
-	public Autorepair(Application app) {
+	public Autorepair(EnchantmentTarget app) {
 		super(app);				
 		configEntries.put("HealAmount", 1);
 		configEntries.put("HealFully", false);

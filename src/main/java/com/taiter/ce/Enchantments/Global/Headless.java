@@ -4,6 +4,7 @@ import com.taiter.ce.EffectManager;
 import com.taiter.ce.Enchantments.CEnchantment;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.*;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -13,7 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Headless extends CEnchantment {
 
-    public Headless(Application app) {
+    public Headless(EnchantmentTarget app) {
         super(app);
         triggers.add(Trigger.DAMAGE_GIVEN);
         resetMaxLevel();

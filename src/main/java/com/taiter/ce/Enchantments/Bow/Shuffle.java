@@ -24,6 +24,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -38,7 +39,7 @@ import com.taiter.ce.Enchantments.CEnchantment;
 
 public class Shuffle extends CEnchantment {
 
-	public Shuffle(Application app) {
+	public Shuffle(EnchantmentTarget app) {
 		super(app);		
 		triggers.add(Trigger.SHOOT_BOW);
 		triggers.add(Trigger.DAMAGE_GIVEN);

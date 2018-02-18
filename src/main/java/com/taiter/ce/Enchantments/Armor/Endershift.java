@@ -21,6 +21,7 @@ package com.taiter.ce.Enchantments.Armor;
 
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -37,7 +38,7 @@ public class Endershift extends CEnchantment {
 	int trigger;
 	int cooldown;
 
-	public Endershift(Application app) {
+	public Endershift(EnchantmentTarget app) {
 		super(app);
 		configEntries.put("Duration", 200);
 		configEntries.put("Strength", 5);

@@ -22,6 +22,7 @@ package com.taiter.ce.Enchantments.Global;
 
 import java.util.Random;
 
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -35,7 +36,7 @@ public class Thunderingblow extends CEnchantment {
 
 	int	chance;
 
-	public Thunderingblow(Application app) {
+	public Thunderingblow(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("LightningChance", 20);
 		triggers.add(Trigger.DAMAGE_GIVEN);

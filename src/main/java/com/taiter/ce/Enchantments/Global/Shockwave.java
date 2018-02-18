@@ -24,6 +24,7 @@ import java.util.List;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -40,7 +41,7 @@ public class Shockwave extends CEnchantment {
     int cooldown;
     List<Material> ForbiddenMaterials;
 
-    public Shockwave(Application app) {
+    public Shockwave(EnchantmentTarget app) {
         super(app);
         configEntries.put("Cooldown", 200);
         configEntries.put("ForbiddenMaterials",

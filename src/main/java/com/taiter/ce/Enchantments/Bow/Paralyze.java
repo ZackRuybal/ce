@@ -21,6 +21,7 @@ package com.taiter.ce.Enchantments.Bow;
 
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -37,7 +38,7 @@ public class Paralyze extends CEnchantment {
 	int	strength;
 
 
-	public Paralyze(Application app) {
+	public Paralyze(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("Duration", 60);
 		configEntries.put("Strength", 5);

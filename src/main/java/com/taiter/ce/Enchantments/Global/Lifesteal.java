@@ -23,6 +23,7 @@ package com.taiter.ce.Enchantments.Global;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -39,7 +40,7 @@ public class Lifesteal extends CEnchantment {
 
 	public double	heal;
 
-	public Lifesteal(Application app) {
+	public Lifesteal(EnchantmentTarget app) {
 		super(app);		
 		configEntries.put("Heal", 2);
 		triggers.add(Trigger.DAMAGE_GIVEN);
