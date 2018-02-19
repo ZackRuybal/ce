@@ -7,25 +7,25 @@ public enum EquipmentSlot {
     HEAD {
         @Override
         public boolean isValid(CEnchantment ce) {
-            return ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_HEAD;
+            return ce.getEnchantmentTarget() == EnchantmentTarget.ALL || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_HEAD;
         }
     },
     CHEST {
         @Override
         public boolean isValid(CEnchantment ce) {
-            return ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_TORSO;
+            return ce.getEnchantmentTarget() == EnchantmentTarget.ALL || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_TORSO;
         }
     },
     LEGS {
         @Override
         public boolean isValid(CEnchantment ce) {
-            return ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_LEGS;
+            return ce.getEnchantmentTarget() == EnchantmentTarget.ALL || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_LEGS;
         }
     },
     FEET {
         @Override
         public boolean isValid(CEnchantment ce) {
-            return ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_FEET;
+            return ce.getEnchantmentTarget() == EnchantmentTarget.ALL || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR || ce.getEnchantmentTarget() == EnchantmentTarget.ARMOR_FEET;
         }
     },
     MAIN_HAND {
