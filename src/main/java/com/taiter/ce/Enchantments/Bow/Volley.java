@@ -1,5 +1,6 @@
 package com.taiter.ce.Enchantments.Bow;
 
+import com.taiter.ce.CEListener;
 import org.bukkit.GameMode;
 
 /*
@@ -78,12 +79,12 @@ public class Volley extends CEnchantment {
             arrow.setKnockbackStrength(knockbackStrength);
             arrow.setCritical(critical);
 
-            if (i == 0) {
-                if (p.getGameMode().equals(GameMode.CREATIVE))
-                    arrow.setMetadata("ce.Volley", new FixedMetadataValue(getPlugin(), null)); //Control metadata to prevent players from duplicating arrows
+            if (i == lvl && p.getGameMode() != GameMode.CREATIVE) {
+                arrow.setPickupStatus(oldArrow.getPickupStatus());
             } else {
-                arrow.setMetadata("ce.Volley", new FixedMetadataValue(getPlugin(), null)); //Control metadata to prevent players from duplicating arrows
+                arrow.setPickupStatus(Arrow.PickupStatus.DISALLOWED);
             }
+            CEListener.projectiles.add(arrow.getUniqueId());
             arrow.setMetadata("ce.bow.enchantment", new FixedMetadataValue(getPlugin(), metadata));
         }
         oldArrow.remove(); // Remove original arrow.

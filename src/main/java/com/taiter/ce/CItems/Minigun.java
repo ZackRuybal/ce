@@ -19,6 +19,7 @@ package com.taiter.ce.CItems;
 */
 
 
+import com.taiter.ce.CEListener;
 import com.taiter.ce.EffectManager;
 import org.bukkit.*;
 import org.bukkit.entity.Arrow;
@@ -105,7 +106,10 @@ public class Minigun extends CItem {
 								arrow.setCritical(critical);
 								if(metadata != null)
 									arrow.setMetadata("ce.bow.enchantment", new FixedMetadataValue(getPlugin(), metadata));
-								arrow.setMetadata("ce.minigunarrow", new FixedMetadataValue(main, null));
+								if (player.getGameMode() == GameMode.CREATIVE) {
+									arrow.setPickupStatus(Arrow.PickupStatus.DISALLOWED);
+								}
+								CEListener.projectiles.add(arrow.getUniqueId());
 								player.getWorld().playEffect(player.getLocation(),Effect.BOW_FIRE, 20);
 								lArrows--;
 								return;

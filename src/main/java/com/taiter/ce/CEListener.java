@@ -22,7 +22,10 @@ import com.taiter.ce.CItems.CItem;
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Enchantments.EnchantManager;
 import net.milkbowl.vault.economy.EconomyResponse;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.*;
@@ -39,15 +42,15 @@ import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.projectiles.ProjectileSource;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class CEListener implements Listener {
 
@@ -69,6 +72,8 @@ public class CEListener implements Listener {
 
     private boolean useRuneCrafting = Main.plugin.getConfig().getBoolean("Global.Runecrafting.Enabled");
 
+    public static Set<UUID> projectiles = new HashSet<>();
+    
     /*
      * Almost all priorities are set to Monitor, the highest priority possible,
      * which allows CE to check if an event has been cancelled by any kind of
@@ -357,15 +362,33 @@ public class CEListener implements Listener {
     public void antiArrowSpam(ProjectileHitEvent event) {
 
         // Destroys the Arrows of the Minigun
-        if (event.getEntityType().equals(EntityType.ARROW)) {
-            Arrow arrow = (Arrow) event.getEntity();
-            ProjectileSource shooter = arrow.getShooter();
-            if (shooter instanceof Player)
-                if (arrow.hasMetadata("ce.minigunarrow"))
-                    if (((Player) shooter).getGameMode().equals(GameMode.CREATIVE))
-                        arrow.remove();
+        Projectile entity = event.getEntity();
+        if (projectiles.contains(entity.getUniqueId())) {
+            projectiles.remove(entity.getUniqueId());
+            if (entity instanceof Arrow && ((Arrow) entity).getPickupStatus() != Arrow.PickupStatus.DISALLOWED) {
+                return;
+            }
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (entity != null) {
+                        entity.remove();
+                    }
+                }
+            }.runTask(Main.plugin);
         }
+    }
 
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onChunkUnload(ChunkUnloadEvent event) {
+        if (event.getChunk() != null) {
+            for (Entity e : event.getChunk().getEntities()) {
+                if (projectiles.contains(e.getUniqueId())) {
+                    projectiles.remove(e.getUniqueId());
+                    e.remove();
+                }
+            }
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
