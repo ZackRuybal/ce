@@ -19,6 +19,8 @@ package com.taiter.ce.CItems;
 */
 
 
+import com.taiter.ce.CBasic;
+import com.taiter.ce.Tools;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -102,8 +104,8 @@ public class Bandage extends CItem {
 	private void heal(final Player p) {
 		p.sendMessage(ChatColor.GREEN + "The bandage covers your wounds.");
 		p.setMetadata("ce." + getOriginalName(), new FixedMetadataValue(main, ChatColor.RED + "You are already using a bandage!"));
-		if(p.hasMetadata("ce.bleed")) 
-			p.removeMetadata("ce.bleed", main);
+		if(CBasic.hasCooldown(p, Tools.BLEED_META_KEY)) 
+			CBasic.generateCooldown(p,Tools.BLEED_META_KEY,0);
 		new BukkitRunnable() {
 			int localCounter = TotalHealTime;
 			@Override

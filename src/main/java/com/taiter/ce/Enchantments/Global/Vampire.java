@@ -30,7 +30,7 @@ public class Vampire extends CEnchantment {
 	public void effect(Event e, ItemStack item, int level) {
 		EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
 		Player damager = (Player) event.getDamager();
-		if (!getHasCooldown(damager)) {
+		if (!hasCooldown(damager, getOriginalName())) {
 			double maxHealth = damager.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
 			double heal = (damager.getHealth() + (event.getDamage() / damageHealFraction));
 			if ( heal < maxHealth) 
@@ -43,7 +43,7 @@ public class Vampire extends CEnchantment {
 			 else 
 				damager.setFoodLevel(20);
 			EffectManager.playSound(damager.getLocation(), Sound.ENTITY_PLAYER_BURP, 0.4f, 1f);
-			generateCooldown(damager, cooldown);
+			generateCooldown(damager, getOriginalName(), cooldown);
 		}
 	}
 

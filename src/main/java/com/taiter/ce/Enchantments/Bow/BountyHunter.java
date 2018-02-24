@@ -75,7 +75,7 @@ public class BountyHunter extends CEnchantment {
 		
 		p.getInventory().addItem(new ItemStack(bountyDrop, Tools.random.nextInt(MaximumBounty+level)+1));
 		p.sendMessage(ChatColor.GOLD + "You have collected a bounty on " + target.getName() + "!");
-		this.generateCooldown(p, Cooldown);
+		generateCooldown(p, getOriginalName(), Cooldown);
 		
 		}
 	}

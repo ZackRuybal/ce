@@ -19,18 +19,15 @@ package com.taiter.ce.Enchantments.Global;
 */
 
 
-
-import java.util.Random;
-
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Tools;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.taiter.ce.Tools;
-import com.taiter.ce.Enchantments.CEnchantment;
-
+import java.util.Random;
 
 
 public class Deepwounds extends CEnchantment {
@@ -50,11 +47,11 @@ public class Deepwounds extends CEnchantment {
 		EntityDamageByEntityEvent event = (EntityDamageByEntityEvent) e;
 		final Player damaged = (Player) event.getEntity();
 		final Player damager = (Player) event.getDamager();
-		if(!getHasCooldown(damager) && !damaged.hasMetadata("ce.bleed")) {
+		if(!hasCooldown(damager) && !hasCooldown(damaged, Tools.BLEED_META_KEY)) {
 
 		Random random = new Random();
 		if(random.nextInt(100) < rand) {
-			generateCooldown(damager, 140);
+			generateCooldown(damager, getOriginalName(), 140);
 			Tools.applyBleed(damaged, duration*level);
 		}
 		}

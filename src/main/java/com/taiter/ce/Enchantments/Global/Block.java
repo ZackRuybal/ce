@@ -42,7 +42,7 @@ public class Block extends CEnchantment {
 				if(owner.isBlocking()) {
 					Tools.addPotionEffect(owner, resistance);
 				} else {
-					generateCooldown(owner, cooldown);
+					generateCooldown(owner, getOriginalName(), cooldown);
 					this.cancel();
 				}
 			}

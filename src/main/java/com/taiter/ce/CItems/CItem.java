@@ -18,10 +18,9 @@ package com.taiter.ce.CItems;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.taiter.ce.CBasic;
+import com.taiter.ce.Main;
+import com.taiter.ce.Tools;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -29,9 +28,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.taiter.ce.CBasic;
-import com.taiter.ce.Main;
-import com.taiter.ce.Tools;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class CItem extends CBasic {
 
@@ -97,37 +96,28 @@ public abstract class CItem extends CBasic {
 
     // Cooldown
 
-    public boolean getHasCooldown(Player p) {
-        if (cooldown.contains(p)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void generateCooldown(final Player p, long cooldownT) {
-        if (cooldownT != 0) {
-            cooldown.add(p);
-
+    public void generateCooldown(final Player p, String name, long ticks, boolean showMessage) {
+        generateCooldown(p, name, ticks);
+        if (ticks != 0 && showMessage) {
             new BukkitRunnable() {
                 @Override
                 public void run() {
-                    cooldown.remove(p);
-                    p.sendMessage("§2Your " + getDisplayName() + "§2 is ready.");
-                    this.cancel();
+                    if(p.isOnline()) {
+                        p.sendMessage("§2Your " + getDisplayName() + "§2 is ready.");
+                    }
                 }
-            }.runTaskLater(main, cooldownT);
+            }.runTaskLater(main, ticks);
         }
     }
 
     // Locks
 
     protected void addLock(Player p) {
-        lockList.add(p);
+        lockList.add(p.getUniqueId());
     }
 
     protected void removeLock(Player p) {
-        lockList.remove(p);
+        lockList.remove(p.getUniqueId());
     }
 
     // Value initiation

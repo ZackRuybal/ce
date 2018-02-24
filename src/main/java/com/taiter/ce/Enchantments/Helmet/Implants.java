@@ -56,7 +56,7 @@ public class Implants extends CEnchantment {
 		
 		if(hunger < 20)
 			player.setFoodLevel(hunger + level);
-		if(air < event.getPlayer().getMaximumAir())
+		if(air < player.getMaximumAir())
 			if(!inWater.contains(player)) {
 				inWater.add(player);
 				new BukkitRunnable() {
@@ -72,7 +72,7 @@ public class Implants extends CEnchantment {
 					}
 				}.runTaskTimer(Main.plugin, 20l, 60l);
 			}
-		generateCooldown(event.getPlayer(), burstDelay);
+		generateCooldown(player, getOriginalName(), burstDelay);
 		
 	}
 

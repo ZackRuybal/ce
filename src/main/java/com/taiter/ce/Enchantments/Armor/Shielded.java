@@ -62,7 +62,7 @@ public class Shielded extends CEnchantment {
         Player player = (Player) event.getEntity();
         if (getAbsorptionHearts(player) <= 0) {
             setAbsorptionHearts(player, baseStrength + level * strengthPerLevel);
-            generateCooldown(player, cooldown);
+            generateCooldown(player, getOriginalName(), cooldown);
         }
     }
 

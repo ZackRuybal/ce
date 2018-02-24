@@ -66,7 +66,7 @@ public class Shockwave extends CEnchantment {
         Location loc = damager.getLocation();
         loc.setY(damager.getLocation().getY() - 1);
         List<Location> list = Tools.getCone(loc);
-        this.generateCooldown(damager, cooldown);
+        this.generateCooldown(damager, getOriginalName(), cooldown);
         damager.getWorld().playEffect(damager.getLocation(), Effect.ZOMBIE_DESTROY_DOOR, 10);
         for (final Location l : list) {
             final org.bukkit.block.Block block = l.getBlock();

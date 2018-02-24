@@ -29,7 +29,7 @@ public class Cloaking extends CEnchantment {
         Player player = (Player) event.getEntity();
         Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.INVISIBILITY, duration * level, 0));
         player.sendMessage(ChatColor.DARK_GRAY + "You have become invisible!");
-        generateCooldown(player, cooldown);
+        generateCooldown(player, getOriginalName(), cooldown);
     }
 
     @Override

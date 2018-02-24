@@ -88,7 +88,7 @@ public class IceAspect extends CEnchantment {
                     Tools.addPotionEffect(ent, new PotionEffect(PotionEffectType.SLOW, SpecialFreezeDuration + 20, 10));
                     final HashMap<Block, String> list = getIgloo(ent.getLocation(), 3, p);
 
-                    generateCooldown(p, SpecialFreezeDuration);
+                    generateCooldown(p, getOriginalName(), SpecialFreezeDuration);
 
                     new BukkitRunnable() {
 

@@ -19,6 +19,7 @@ package com.taiter.ce.CItems;
 */
 
 
+import com.taiter.ce.CBasic;
 import com.taiter.ce.Tools;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -77,10 +78,7 @@ public class BearTrap extends CItem {
 			
 			if(!b.getType().equals(Material.AIR)) {
 				b.setType(Material.AIR);
-
-				if(player.hasMetadata("ce.bleed")) 
-					player.removeMetadata("ce.bleed", main);
-				if(player.hasMetadata("ce.bleed") && player.hasPotionEffect(PotionEffectType.SLOW) && player.hasPotionEffect(PotionEffectType.WEAKNESS)) {
+				if(CBasic.hasCooldown(player,Tools.BLEED_META_KEY) && player.hasPotionEffect(PotionEffectType.SLOW) && player.hasPotionEffect(PotionEffectType.WEAKNESS)) {
 					player.sendMessage(ChatColor.RED + "You walked into another Bear Trap! Are you kidding me?!");
 				} else {
 					player.sendMessage(ChatColor.RED + "You triggered a trap, leaving you vulnerable!");

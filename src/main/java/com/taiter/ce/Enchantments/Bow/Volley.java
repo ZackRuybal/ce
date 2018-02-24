@@ -20,6 +20,8 @@ import org.bukkit.GameMode;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -53,6 +55,7 @@ public class Volley extends CEnchantment {
     private void volley(EntityShootBowEvent e, ItemStack item, int lvl) {
         Player p = (Player) e.getEntity();
         int amount = 1 + 2 * lvl; // Keep amount of arrows uneven, 2 extra arrows in a volley per level.
+        ItemStack bow = e.getBow();
 
         Arrow oldArrow = (Arrow) e.getProjectile();
         int fireTicks = oldArrow.getFireTicks();
@@ -79,7 +82,7 @@ public class Volley extends CEnchantment {
             arrow.setKnockbackStrength(knockbackStrength);
             arrow.setCritical(critical);
 
-            if (i == lvl && p.getGameMode() != GameMode.CREATIVE) {
+            if (i == lvl && p.getGameMode() != GameMode.CREATIVE && bow != null && bow.getType() != Material.AIR && bow.getEnchantmentLevel(Enchantment.ARROW_INFINITE) <= 0) {
                 arrow.setPickupStatus(oldArrow.getPickupStatus());
             } else {
                 arrow.setPickupStatus(Arrow.PickupStatus.DISALLOWED);

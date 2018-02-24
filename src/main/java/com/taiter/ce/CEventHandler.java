@@ -265,8 +265,8 @@ public class CEventHandler extends BukkitRunnable{
                                         int level = EnchantManager.getLevel(s);
 
                                         if (!Boolean.parseBoolean(Main.config.getString("Global.Enchantments.RequirePermissions")) || Tools.checkPermission(ce, toCheck))
-                                            if (!ce.lockList.contains(toCheck))
-                                                if (!ce.getHasCooldown(toCheck))
+                                            if (!ce.lockList.contains(toCheck.getUniqueId()))
+                                                if (!ce.hasCooldown(toCheck))
                                                     try {
                                                         long time = System.currentTimeMillis();
                                                         if (Tools.random.nextDouble() * 100 <= ce.getOccurrenceChance()) {
@@ -332,8 +332,8 @@ public class CEventHandler extends BukkitRunnable{
                                 }
 
                                 if (!Boolean.parseBoolean(Main.config.getString("Global.Enchantments.RequirePermissions")) || Tools.checkPermission(ci, toCheck))
-                                    if (!ci.getHasCooldown(toCheck))
-                                        if (!ci.lockList.contains(toCheck)) {
+                                    if (!ci.hasCooldown(toCheck))
+                                        if (!ci.lockList.contains(toCheck.getUniqueId())) {
                                             if (e instanceof PlayerMoveEvent && (ci.getOriginalName().equals("Landmine") || ci.getOriginalName().equals("Bear Trap")
                                                     || ci.getOriginalName().equals("Piranha Trap") || ci.getOriginalName().equals("Poison Ivy") || ci.getOriginalName().equals("Prickly Block")))
                                                 return;
@@ -345,7 +345,7 @@ public class CEventHandler extends BukkitRunnable{
                                                 long time = System.currentTimeMillis();
 
                                                 if (ci.effect(e, toCheck))
-                                                    ci.generateCooldown(toCheck, ci.getCooldown());
+                                                    CBasic.generateCooldown(toCheck, ci.getOriginalName(), ci.getCooldown());
                                                 if (Boolean.parseBoolean(Main.config.getString("Global.Logging.Enabled")) && Boolean.parseBoolean(Main.config.getString("Global.Logging.LogItems"))) {
                                                     long timeF = (System.currentTimeMillis() - time);
                                                     if (timeF > Integer.parseInt(Main.config.getString("Global.Logging.MinimumMsForLog")))

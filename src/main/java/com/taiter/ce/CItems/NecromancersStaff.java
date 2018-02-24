@@ -145,7 +145,7 @@ public class NecromancersStaff extends CItem {
                 }
 
                 // Generate the cooldown based on the cooldown value
-                generateCooldown(player, cooldown);
+                generateCooldown(player, getOriginalName(), cooldown, true);
             } else {
                 player.sendMessage(ChatColor.RED + "You need " + cost + " " + Fuel.toString().toLowerCase().replace("_", " ") + " to cast this spell.");
             }

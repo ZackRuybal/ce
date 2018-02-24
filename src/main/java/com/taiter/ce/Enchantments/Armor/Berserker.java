@@ -54,7 +54,7 @@ public class Berserker extends CEnchantment {
 		if(player.getHealth() <= trigger) {
 			Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.INCREASE_DAMAGE, duration * level, strength + level - 1));
 			player.sendMessage("Your bloodloss makes you stronger!");
-			generateCooldown(player, cooldown);
+			generateCooldown(player, getOriginalName(),cooldown);
 		}
 	}
 

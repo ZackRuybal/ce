@@ -25,10 +25,8 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.EnchantmentTarget;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import com.taiter.ce.CBasic;
 import com.taiter.ce.Main;
@@ -106,22 +104,6 @@ public abstract class CEnchantment extends CBasic {
         this.configEntries.put("OccurrenceChance", 100);
         this.configEntries.put("Cost", costPerLevel);
         this.configEntries.put("RunecraftingCost", Arrays.asList("0LVL&0$", "0LVL&0$", "0LVL&0$", "0LVL&0$", "0LVL&0$"));
-    }
-
-    public boolean getHasCooldown(Player p) {
-        if (cooldown.contains(p))
-            return true;
-        return false;
-    }
-
-    public void generateCooldown(final Player p, long time) {
-        cooldown.add(p);
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                cooldown.remove(p);
-            }
-        }.runTaskLater(main, time);
     }
 
     private void writeEnchantmentAmounts() {

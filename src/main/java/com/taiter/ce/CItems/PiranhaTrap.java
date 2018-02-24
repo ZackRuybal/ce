@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.taiter.ce.CBasic;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
@@ -64,11 +65,10 @@ public class PiranhaTrap extends CItem {
 			String coord = b.getX() + " " + b.getY() + " " + b.getZ();
 			b.getRelative(0,1,0).setMetadata("ce.mine.secondary", new FixedMetadataValue(main, coord));
 			} else if(event instanceof PlayerMoveEvent) {
-				if(!player.hasMetadata("ce.bleed")) {
+				if(!CBasic.hasCooldown(player, Tools.BLEED_META_KEY)) {
 					Tools.applyBleed(player, BleedDuration);
 					player.sendMessage(ChatColor.RED + "You are bitten by piranhas and start bleeding!");
 				} else {
-					player.removeMetadata("ce.bleed", main);
 					Tools.applyBleed(player, BleedDuration * 2);
 					player.sendMessage(ChatColor.RED + "You are bitten by piranhas and your bleeding intensifies!");
 				}

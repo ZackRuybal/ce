@@ -55,7 +55,7 @@ public class Endershift extends CEnchantment {
 			Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.SPEED, duration * level, strength + level - 1));
 			Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.ABSORPTION, duration * level, strength + level - 1));
 			player.sendMessage("You feel a rush of energy coming from your armor!");
-			generateCooldown(player, cooldown);
+			generateCooldown(player, getOriginalName(), cooldown);
 		}
 	}
 

@@ -1,14 +1,11 @@
 package com.taiter.ce;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.*;
 
 public abstract class CBasic {
 
@@ -32,8 +29,8 @@ public abstract class CBasic {
 
     protected Plugin main = Main.plugin;
 
-    protected HashSet<Player> cooldown = new HashSet<Player>();
-    protected HashSet<Player> lockList = new HashSet<Player>();
+    protected static Map<String,Long> cooldown = new HashMap<>();
+    protected HashSet<UUID> lockList = new HashSet<>();
     protected HashSet<Trigger> triggers = new HashSet<Trigger>();
 
     protected String displayName;
@@ -77,4 +74,29 @@ public abstract class CBasic {
         return this.potionsOnWear;
     }
 
+    public boolean hasCooldown(Player p) {
+        return hasCooldown(p, getOriginalName());
+    }
+
+    public static boolean hasCooldown(Player p, String name) {
+        if (cooldown.isEmpty()) {
+            return false;
+        }
+        String key = p.getUniqueId().toString() + name;
+        if (cooldown.containsKey(key) && cooldown.get(key) > System.currentTimeMillis()) {
+            return true;
+        } else {
+            cooldown.remove(key);
+            return false;
+        }
+    }
+
+    public static void generateCooldown(final Player p, String name, long ticks) {
+        String key = p.getUniqueId().toString() + name;
+        if (ticks > 0) {
+            cooldown.put(key, System.currentTimeMillis() + (ticks * 50));
+        } else {
+            cooldown.remove(key);
+        }
+    }
 }

@@ -30,7 +30,6 @@ import com.taiter.ce.Enchantments.EnchantManager;
 import org.bukkit.*;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.enchantments.EnchantmentTarget;
-import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -39,7 +38,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -49,7 +47,7 @@ public class Tools {
 
     public static String prefix = "CE - ";
     public static Random random = new Random();
-
+    public static String BLEED_META_KEY = "ce.bleed";
     //ENCHANTMENTS
     public static boolean isEnchantmentTargetCorrect(EnchantmentTarget app, Material matToApplyTo) {
         return app.includes(matToApplyTo) || (app == EnchantmentTarget.ARMOR && matToApplyTo == Material.ELYTRA);
@@ -712,23 +710,13 @@ public class Tools {
 
     public static void applyBleed(final Player target, final int bleedDuration) {
         target.sendMessage(ChatColor.RED + "You are Bleeding!");
-        target.setMetadata("ce.bleed", new FixedMetadataValue(Main.plugin, null));
+        CBasic.generateCooldown(target, BLEED_META_KEY, bleedDuration);
         new BukkitRunnable() {
-
-            int seconds = bleedDuration;
-
             @Override
             public void run() {
-                if (seconds >= 0) {
-                    if (!target.isDead() && target.hasMetadata("ce.bleed")) {
-                        target.damage(1 + (((Damageable) target).getHealth() / 15));
-                        seconds--;
-                    } else {
-                        target.removeMetadata("ce.bleed", Main.plugin);
-                        this.cancel();
-                    }
-                } else {
-                    target.removeMetadata("ce.bleed", Main.plugin);
+                if (!target.isDead() && CBasic.hasCooldown(target, BLEED_META_KEY)) {
+                    target.damage(1 + target.getHealth() / 15);
+                } else if (!target.isDead()) {
                     target.sendMessage(ChatColor.GREEN + "You have stopped Bleeding!");
                     this.cancel();
                 }
