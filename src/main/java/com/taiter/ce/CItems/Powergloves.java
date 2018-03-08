@@ -39,14 +39,14 @@ public class Powergloves extends CItem {
 	/* 舉起後多久可以投擲 */
 	int	ThrowDelayAfterGrab;
 	/* 最大舉起時間 */
-	int	MaxGrabtime;
+	int MaxGrabTicks;
     public static String POWERGLOVES_META_KEY = "ce.Powergloves";
 
 	public Powergloves(String originalName, ChatColor color, String lDescription, long lCooldown, Material mat) {
 		super(originalName, color, lDescription, lCooldown, mat);
 		this.configEntries.put("ThrowSpeedMultiplier", 60);
 		this.configEntries.put("ThrowDelayAfterGrab", 20);
-		this.configEntries.put("MaxGrabtime", 10);
+		this.configEntries.put("MaxGrabTicks", 200);
 		triggers.add(Trigger.INTERACT_RIGHT);
 		triggers.add(Trigger.INTERACT_ENTITY);
 	}
@@ -68,67 +68,56 @@ public class Powergloves extends CItem {
 
                     new BukkitRunnable() {
 
+                        int GrabTime = 0;
+                        //ItemStack	current		= player.getInventory().getItemInMainHand();
+
                         @Override
                         public void run() {
-                            if (player.isOnline() && !player.isDead()) {
-                                player.getWorld().playEffect(player.getLocation(), Effect.CLICK2, 10);
-                                if (player.getPassengers().contains(clicked)) {
-                                    generateCooldown(player, POWERGLOVES_META_KEY, MaxGrabtime);
+                            GrabTime++;
+                            if (player.isOnline() && !player.isDead() && player.getPassengers().contains(clicked)) {
+                                if (GrabTime == ThrowDelayAfterGrab) {
+                                    player.getWorld().playEffect(player.getLocation(), Effect.CLICK2, 10);
+                                    generateCooldown(player, POWERGLOVES_META_KEY, MaxGrabTicks);
                                     if (clicked.getCustomName() == null) {
                                         player.sendMessage("You catched " + clicked.getName() + "! Right click to throw!");
                                     } else {
                                         player.sendMessage("You catched " + clicked.getCustomName() + "! Right click to throw!");
                                     }
-                                    return;
                                 }
-                            }
-                        }
-                    }.runTaskLater(main, ThrowDelayAfterGrab);
-
-                    new BukkitRunnable() {
-
-                        int GrabTime = MaxGrabtime;
-                        //ItemStack	current		= player.getInventory().getItemInMainHand();
-
-                        @Override
-                        public void run() {
-                            if (player.isOnline() && !player.isDead() && player.getPassengers().contains(clicked)) {
-
-                                if (GrabTime > 0) {
-                                    GrabTime--;
-                                } else if (GrabTime <= 0) {
+                                if (GrabTime >= MaxGrabTicks) {
                                     this.cancel();
-                                        player.getWorld().playEffect(player.getLocation(), Effect.CLICK1, 10);
-                                        generateCooldown(player, getOriginalName(), getCooldown(), true);
-                                        if (clicked.isValid()) {
-                                            if (clicked.getCustomName() == null) {
-                                                player.sendMessage("§4Oh! The §f" + clicked.getName() + " §4has run off!");
-                                            } else {
-                                                player.sendMessage("§4Oh! The §f" + clicked.getCustomName() + " §4has run off!");
-                                            }
-                                            clicked.leaveVehicle();
+                                    player.getWorld().playEffect(player.getLocation(), Effect.CLICK1, 10);
+                                    generateCooldown(player, getOriginalName(), getCooldown(), true);
+                                    if (clicked.isValid()) {
+                                        if (clicked.getCustomName() == null) {
+                                            player.sendMessage("§4Oh! The §f" + clicked.getName() + " §4has run off!");
+                                        } else {
+                                            player.sendMessage("§4Oh! The §f" + clicked.getCustomName() + " §4has run off!");
                                         }
-                                    
+                                        clicked.leaveVehicle();
+                                    }
                                 }
                             } else {
                                 this.cancel();
-                                if (hasCooldown(player, POWERGLOVES_META_KEY)) {
-                                    generateCooldown(player, POWERGLOVES_META_KEY, 0);
+                                if (!hasCooldown(player, getOriginalName())) {
                                     generateCooldown(player, getOriginalName(), getCooldown(), true);
+                                    generateCooldown(player, POWERGLOVES_META_KEY, 0);
                                 }
                             }
                         }
-                    }.runTaskTimer(main, 0l, 10l);
+                    }.runTaskTimer(main, 0L, 1L);
                 }
             }
         } else if (event instanceof PlayerInteractEvent) {
-            if (hasCooldown(player, POWERGLOVES_META_KEY)&&!player.getPassengers().isEmpty()) {
-                    for (Entity passenger : player.getPassengers()) {
-                        passenger.leaveVehicle();
-                        passenger.setVelocity(player.getLocation().getDirection().multiply(ThrowSpeedMultiplier));
-                        player.getWorld().playEffect(player.getLocation(), Effect.ZOMBIE_DESTROY_DOOR, 10);
-                    }
-                    return true;
+            if (hasCooldown(player, POWERGLOVES_META_KEY) && !player.getPassengers().isEmpty()) {
+                generateCooldown(player, getOriginalName(), getCooldown(), true);
+                generateCooldown(player, POWERGLOVES_META_KEY, 0);
+                for (Entity passenger : player.getPassengers()) {
+                    passenger.leaveVehicle();
+                    passenger.setVelocity(player.getLocation().getDirection().multiply(ThrowSpeedMultiplier));
+                    player.getWorld().playEffect(player.getLocation(), Effect.ZOMBIE_DESTROY_DOOR, 10);
+                }
+                return true;
             }
         }
 
@@ -138,7 +127,7 @@ public class Powergloves extends CItem {
 	@Override
 	public void initConfigEntries() {
 		ThrowDelayAfterGrab = Integer.parseInt(getConfig().getString("Items." + getOriginalName() + ".ThrowDelayAfterGrab"));
-		MaxGrabtime = Integer.parseInt(getConfig().getString("Items." + getOriginalName() + ".MaxGrabtime"));
+        MaxGrabTicks = Integer.parseInt(getConfig().getString("Items." + getOriginalName() + ".MaxGrabTicks"));
 		ThrowSpeedMultiplier = Integer.parseInt(getConfig().getString("Items." + getOriginalName() + ".ThrowSpeedMultiplier"));
 	}
 
