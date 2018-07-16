@@ -18,11 +18,9 @@ package com.taiter.ce.CItems;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
+import com.taiter.ce.EffectManager;
+import com.taiter.ce.Main;
+import com.taiter.ce.Tools;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.SmallFireball;
@@ -33,9 +31,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import com.taiter.ce.EffectManager;
-import com.taiter.ce.Main;
-import com.taiter.ce.Tools;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 public class NecromancersStaff extends CItem {
 
@@ -155,10 +154,12 @@ public class NecromancersStaff extends CItem {
                       // returns false
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void initConfigEntries() {
         Fuel = Material.getMaterial(getConfig().getString("Items." + getOriginalName() + ".Fuel"));
+        if (Fuel == null) {
+            Fuel = Material.getMaterial(getConfig().getString("Items." + getOriginalName() + ".Fuel"), true);
+        }
         LightningCost = Integer.parseInt(getConfig().getString("Items." + getOriginalName() + ".LightningCost"));
         LightningCooldown = Integer.parseInt(getConfig().getString("Items." + getOriginalName() + ".LightningCooldown"));
         WitherCost = Integer.parseInt(getConfig().getString("Items." + getOriginalName() + ".WitherCost"));
