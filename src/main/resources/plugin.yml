@@ -1,7 +1,7 @@
 name: CustomEnchantments
 main: com.taiter.ce.Main
 version: 2.4c
-
+api-version: 1.13
 softdepend: [WorldGuard, WorldEdit, Vault]
 
 commands:

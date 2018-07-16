@@ -132,11 +132,7 @@ public class Shockwave extends CEnchantment {
         String[] s = mS.split(",");
 
         for (int i = 0; i < s.length; i++)
-            try {
-                ForbiddenMaterials.add(Material.getMaterial(Integer.parseInt(s[i])));
-            } catch (NumberFormatException ex) {
-                ForbiddenMaterials.add(Material.getMaterial(s[i].toUpperCase()));
-            }
+            ForbiddenMaterials.add(Material.getMaterial(s[i]));
         if (ForbiddenMaterials.contains(Material.AIR))
             ForbiddenMaterials.remove(Material.AIR);
     }

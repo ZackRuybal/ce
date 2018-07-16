@@ -35,7 +35,7 @@ public class Deathbringer extends CEnchantment {
 		
 		if(currentHealth > trueDamage) {
 			((Damageable) ent).setHealth(currentHealth-trueDamage);
-			EffectManager.playSound(player.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 0.1f, 0.1f);
+			EffectManager.playSound(player.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 0.1f, 0.1f);
 		}
 		
 

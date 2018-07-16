@@ -63,7 +63,7 @@ public class Implants extends CEnchantment {
 					@Override
 					public void run() {
 						if(player.isOnline() && !player.isDead() && player.getInventory().getBoots() != null && player.getInventory().getBoots().hasItemMeta() && player.getInventory().getBoots().getItemMeta().hasLore() && player.getInventory().getBoots().getItemMeta().getLore().contains(getDisplayName())) {
-						if(player.getLocation().getBlock().getRelative(0, 1, 0).getType() != Material.WATER || player.getLocation().getBlock().getRelative(0, 1, 0).getType() != Material.STATIONARY_WATER)
+						if(player.getLocation().getBlock().getRelative(0, 1, 0).getType() != Material.WATER)
 							this.cancel();
 						if(player.getRemainingAir() < player.getMaximumAir())
 							player.setRemainingAir(player.getRemainingAir() + level);

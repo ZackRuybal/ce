@@ -3,6 +3,7 @@ package com.taiter.ce.Enchantments.Global;
 import com.taiter.ce.EffectManager;
 import com.taiter.ce.Enchantments.CEnchantment;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.*;
@@ -31,29 +32,25 @@ public class Headless extends CEnchantment {
             public void run() {
 
                 if (ent.getHealth() <= 0) {
-                    byte type = -1;
+                    ItemStack skull = null;
                     if (ent instanceof Player) {
-                        type = 3;
-                    } else if (ent instanceof WitherSkeleton) {
-                        type = 1;
-                    } else if (ent instanceof Skeleton) {
-                        type = 0;
-                    } else if (ent instanceof Zombie) {
-                        type = 2;
-                    } else if (ent instanceof Creeper) {
-                        type = 4;
-                    }
-                    if (type < 0) {
-                        return;
-                    }
-                    ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, type);
-                    if (type == 3) {
+                        skull = new ItemStack(Material.PLAYER_HEAD);
                         SkullMeta sm = (SkullMeta) skull.getItemMeta();
-                        sm.setOwner(ent.getName());
+                        sm.setOwningPlayer((OfflinePlayer) ent);
                         skull.setItemMeta(sm);
+                    } else if (ent instanceof WitherSkeleton) {
+                        skull = new ItemStack(Material.WITHER_SKELETON_SKULL);
+                    } else if (ent instanceof Skeleton) {
+                        skull = new ItemStack(Material.SKELETON_SKULL);
+                    } else if (ent instanceof Zombie) {
+                        skull = new ItemStack(Material.ZOMBIE_HEAD);
+                    } else if (ent instanceof Creeper) {
+                        skull = new ItemStack(Material.CREEPER_HEAD);
                     }
-                    ent.getWorld().dropItem(ent.getLocation(), skull);
-                    EffectManager.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.1f, 1.5f);
+                    if (skull != null) {
+                        ent.getWorld().dropItem(ent.getLocation(), skull);
+                        EffectManager.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.1f, 1.5f);
+                    }
                 }
             }
         }.runTaskLater(getPlugin(), 5l);

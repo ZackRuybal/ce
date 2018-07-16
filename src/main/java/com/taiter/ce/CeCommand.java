@@ -171,12 +171,7 @@ public class CeCommand {
                         return Error;
                     }
 
-                    Material mat = null;
-
-                    try {
-                        mat = Material.getMaterial(Integer.parseInt(args[2]));
-                    } catch (Exception e) {
-                    }
+                    Material mat = Material.getMaterial(args[2]);
 
                     if (mat == null) {
 
@@ -565,17 +560,7 @@ public class CeCommand {
                         Material test = null;
 
                         int start = 2;
-
-                        if (Material.getMaterial(customName) != null)
-                            test = Material.getMaterial(customName);
-                        else
-                            try {
-                                int material = Integer.parseInt(customName);
-                                if (Material.getMaterial(material) != null)
-                                    test = Material.getMaterial(material);
-                            } catch (NumberFormatException ex) {
-                            }
-
+                        test = Material.getMaterial(customName);
                         if (test != null) {
                             if (p.getItemInHand().getType() != test)
                                 return Error + "You do not have the right material to enchant this!";
@@ -633,14 +618,10 @@ public class CeCommand {
                         }
                         if (custom == null) {
                             Enchantment ench = null;
-                            try {
-                                ench = Enchantment.getById(Integer.parseInt(customName));
-                            } catch (Exception e) {
                                 try {
                                     ench = Enchantment.getByName(customName);
                                 } catch (Exception ex) {
                                 }
-                            }
 
                             if (ench != null)
                                 if (item.containsEnchantment(ench)) {

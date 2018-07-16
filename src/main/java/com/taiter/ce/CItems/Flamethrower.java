@@ -85,7 +85,7 @@ public class Flamethrower extends CItem {
 					if(l.getBlock().getType().equals(Material.AIR))
 						l.getBlock().setType(Material.FIRE);
 					l.getWorld().playEffect(l, Effect.SMOKE, 20);
-					final FallingBlock fire = l.getWorld().spawnFallingBlock(l, Material.FIRE.getId(), (byte) 0);
+					final FallingBlock fire = l.getWorld().spawnFallingBlock(l, Material.FIRE.createBlockData());
 					fire.setDropItem(false);
 					fire.setVelocity(player.getLocation().getDirection());
 					new BukkitRunnable() {
@@ -95,7 +95,7 @@ public class Flamethrower extends CItem {
 							list.add(fire.getLocation());
 							this.cancel();
 						} else {
-							if(!Tools.checkWorldGuard(fire.getLocation(), player, "BUILD", true) || fire.getLocation().getBlock().getType().equals(Material.WATER) || fire.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)) {
+							if(!Tools.checkWorldGuard(fire.getLocation(), player, "BUILD", true) || fire.getLocation().getBlock().getType().equals(Material.WATER)) {
 								fire.getWorld().playEffect(fire.getLocation(), Effect.EXTINGUISH, 60);
 								fire.remove();
 								this.cancel();

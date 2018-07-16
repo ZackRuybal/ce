@@ -64,7 +64,7 @@ public class Bombardment extends CEnchantment {
 		final World world = target.getWorld();
 		Vector vec = new Vector(0, -5, 0);
 		Location spawnLocation = new Location(world, target.getLocation().getX(), 255, target.getLocation().getZ());
-		final FallingBlock b = world.spawnFallingBlock(spawnLocation, 46, (byte) 0x0);
+		final FallingBlock b = world.spawnFallingBlock(spawnLocation, Material.TNT.createBlockData());
 		b.setVelocity(vec);
 
 		new BukkitRunnable() {
@@ -85,7 +85,7 @@ public class Bombardment extends CEnchantment {
 					this.cancel();
 				}
 				
-				EffectManager.playSound(l, Sound.ENTITY_ENDERDRAGON_GROWL, Volume, 2f);
+				EffectManager.playSound(l, Sound.ENTITY_ENDER_DRAGON_GROWL, Volume, 2f);
 			}
 		}.runTaskTimer(getPlugin(), 0l, 5l);
 		}

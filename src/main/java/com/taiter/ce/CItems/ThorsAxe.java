@@ -68,7 +68,7 @@ public class ThorsAxe extends CItem {
 						if(loc.getBlock().getType().equals(Material.AIR) && Tools.checkWorldGuard(loc, player, "PVP", false)) 
 							loc.getBlock().setType(Material.FIRE);
 					
-						EffectManager.playSound(e.getClickedBlock().getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 0.75f, 1f);
+						EffectManager.playSound(e.getClickedBlock().getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 0.75f, 1f);
 					
 						player.getInventory().getItemInMainHand().setDurability((short) (player.getInventory().getItemInMainHand().getDurability() + 1));
 					

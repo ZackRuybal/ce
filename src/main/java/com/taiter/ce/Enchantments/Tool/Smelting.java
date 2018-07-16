@@ -99,26 +99,26 @@ public class Smelting extends CEnchantment {
 				player.getWorld().playEffect(b.getLocation(), Effect.MOBSPAWNER_FLAMES, 12);
 				b.setType(Material.AIR);
 				// Fix the no-durability-usage
-				boolean damageItem = false;
-				if(player.getInventory().getItemInMainHand().getEnchantments().containsKey(Enchantment.DURABILITY)){
-					int chance = (int)Math.round((Math.random()*100));
-					int unbreaking_level = player.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.DURABILITY);
-					int percentage = (int)Math.round((100/(unbreaking_level+1)));
-					if (chance<percentage) damageItem = true;
-				}
-				else{damageItem = true;}
-				if(!player.getGameMode().equals(GameMode.CREATIVE) && damageItem){
-					//They messed this up
-					if((player.getInventory().getItemInMainHand().getDurability()+1) > player.getInventory().getItemInMainHand().getType().getMaxDurability()){
-						// And the Spigot team messed this up
-						//player.getInventory().removeItem(player.getInventory().getItemInMainHand());
-						// Doesnt reliably pick the correct item from the inventory if you have multiple similar ones
-						player.getInventory().getItemInMainHand().setAmount(0);
-						// hope this doesn't cause issues
-					} else {
-						player.getInventory().getItemInMainHand().setDurability((short) (player.getInventory().getItemInMainHand().getDurability()+1));
-					}
-				}
+								boolean damageItem = false;
+								if(player.getInventory().getItemInMainHand().getEnchantments().containsKey(Enchantment.DURABILITY)){
+										int chance = (int)Math.round((Math.random()*100));
+										int unbreaking_level = player.getInventory().getItemInMainHand().getEnchantmentLevel(Enchantment.DURABILITY);
+										int percentage = (int)Math.round((100/(unbreaking_level+1)));
+										if (chance<percentage) damageItem = true;
+									}
+								else{damageItem = true;}
+								if(!player.getGameMode().equals(GameMode.CREATIVE) && damageItem){
+										//They messed this up
+												if((player.getInventory().getItemInMainHand().getDurability()+1) > player.getInventory().getItemInMainHand().getType().getMaxDurability()){
+												// And the Spigot team messed this up
+														//player.getInventory().removeItem(player.getInventory().getItemInMainHand());
+																// Doesnt reliably pick the correct item from the inventory if you have multiple similar ones
+																		player.getInventory().getItemInMainHand().setAmount(0);
+												// hope this doesn't cause issues
+													} else {
+												player.getInventory().getItemInMainHand().setDurability((short) (player.getInventory().getItemInMainHand().getDurability()+1));
+											}
+									}
 			}
 			
 		}

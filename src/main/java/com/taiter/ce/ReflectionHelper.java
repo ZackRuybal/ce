@@ -41,13 +41,14 @@ public class ReflectionHelper {
         nmsVersion += version + ".";
 
         //Grab all needed reflection methods/constructors
+        /*
         try {
             effectPacketConstructor = getNMSClass("PacketPlayOutWorldParticles").getConstructor(getNMSClass("EnumParticle"), boolean.class, float.class, float.class, float.class, float.class,
                     float.class, float.class, float.class, int.class, int[].class);
         } catch (NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
         }
-
+        */
         new EffectManager();
     }
 

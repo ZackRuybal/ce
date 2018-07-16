@@ -53,7 +53,7 @@ public class NecromancersStaff extends CItem {
 
     public NecromancersStaff(String originalName, ChatColor color, String lDescription, long lCooldown, Material mat) {
         super(originalName, color, lDescription, lCooldown, mat);
-        this.configEntries.put("Fuel", 377);
+        this.configEntries.put("Fuel", Material.BLAZE_POWDER.name());
         this.configEntries.put("WitherCost", 10);
         this.configEntries.put("WitherCooldown", 100);
         this.configEntries.put("FireballCost", 35);
@@ -141,7 +141,7 @@ public class NecromancersStaff extends CItem {
                     player.getWorld().strikeLightning(target);
                     if (Tools.checkWorldGuard(l, player, "TNT", true))
                         player.getWorld().createExplosion(target, 1);
-                    EffectManager.playSound(target, Sound.ENTITY_ENDERDRAGON_GROWL, 0.5f, 2f);
+                    EffectManager.playSound(target, Sound.ENTITY_ENDER_DRAGON_GROWL, 0.5f, 2f);
                 }
 
                 // Generate the cooldown based on the cooldown value
@@ -158,7 +158,7 @@ public class NecromancersStaff extends CItem {
     @SuppressWarnings("deprecation")
     @Override
     public void initConfigEntries() {
-        Fuel = Material.getMaterial(Integer.parseInt(getConfig().getString("Items." + getOriginalName() + ".Fuel")));
+        Fuel = Material.getMaterial(getConfig().getString("Items." + getOriginalName() + ".Fuel"));
         LightningCost = Integer.parseInt(getConfig().getString("Items." + getOriginalName() + ".LightningCost"));
         LightningCooldown = Integer.parseInt(getConfig().getString("Items." + getOriginalName() + ".LightningCooldown"));
         WitherCost = Integer.parseInt(getConfig().getString("Items." + getOriginalName() + ".WitherCost"));

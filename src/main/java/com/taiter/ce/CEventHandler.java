@@ -181,7 +181,7 @@ public class CEventHandler extends BukkitRunnable{
         im.setLore(lore);
         i.setItemMeta(im);
 
-        EffectManager.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_BLAST, 1f, 1f);
+        EffectManager.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST, 1f, 1f);
 
     }
 
@@ -484,7 +484,7 @@ public class CEventHandler extends BukkitRunnable{
                         result.setItemMeta(im);
                     }
                     EffectManager.playSound(p.getLocation(), Sound.BLOCK_ANVIL_USE, 1f, 2f);
-                    EffectManager.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 1f, 1.5f);
+                    EffectManager.playSound(p.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1f, 1.5f);
 
                     inv.clear();
 

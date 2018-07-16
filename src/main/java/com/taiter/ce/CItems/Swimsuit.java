@@ -52,7 +52,7 @@ public class Swimsuit extends CItem {
 	@Override
 	public boolean effect(Event event, final Player player) {
 
-		if(player.getLocation().getBlock().getType().equals(Material.WATER) || player.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)) {
+		if(player.getLocation().getBlock().getType().equals(Material.WATER)) {
 			if((player.getEquipment().getHelmet() != null && player.getEquipment().getHelmet().hasItemMeta() && player.getEquipment().getHelmet().getItemMeta().hasDisplayName() && player.getEquipment().getHelmet().getItemMeta().getDisplayName().equals(parts[0])) || (player.getEquipment().getChestplate() != null && player.getEquipment().getChestplate().hasItemMeta() && player.getEquipment().getChestplate().getItemMeta().hasDisplayName() && player.getEquipment().getChestplate().getItemMeta().getDisplayName().equals(parts[1])) || (player.getEquipment().getLeggings() != null && player.getEquipment().getLeggings().hasItemMeta() && player.getEquipment().getLeggings().getItemMeta().hasDisplayName() && player.getEquipment().getLeggings().getItemMeta().getDisplayName().equals(parts[2])) || (player.getEquipment().getBoots() != null && player.getEquipment().getBoots().hasItemMeta() && player.getEquipment().getBoots().getItemMeta().hasDisplayName() && player.getEquipment().getBoots().getItemMeta().getDisplayName().equals(parts[3]))) {
 
 				addLock(player);
@@ -62,7 +62,7 @@ public class Swimsuit extends CItem {
 					@Override
 					public void run() {
 
-						if(player.getLocation().getBlock().getType().equals(Material.WATER) || player.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)) {
+						if(player.getLocation().getBlock().getType().equals(Material.WATER)) {
 							if((player.getEquipment().getHelmet() != null && player.getEquipment().getHelmet().hasItemMeta() && player.getEquipment().getHelmet().getItemMeta().hasDisplayName() && player.getEquipment().getHelmet().getItemMeta().getDisplayName().equals(parts[0])) || (player.getEquipment().getChestplate() != null && player.getEquipment().getChestplate().hasItemMeta() && player.getEquipment().getChestplate().getItemMeta().hasDisplayName() && player.getEquipment().getChestplate().getItemMeta().getDisplayName().equals(parts[1])) || (player.getEquipment().getLeggings() != null && player.getEquipment().getLeggings().hasItemMeta() && player.getEquipment().getLeggings().getItemMeta().hasDisplayName() && player.getEquipment().getLeggings().getItemMeta().getDisplayName().equals(parts[2])) || (player.getEquipment().getBoots() != null && player.getEquipment().getBoots().hasItemMeta() && player.getEquipment().getBoots().getItemMeta().hasDisplayName() && player.getEquipment().getBoots().getItemMeta().getDisplayName().equals(parts[3]))) {
 								player.setRemainingAir(player.getMaximumAir());
 								Tools.addPotionEffect(player, new PotionEffect(PotionEffectType.SPEED, 120, SpeedBoostLevel));

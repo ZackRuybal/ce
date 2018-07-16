@@ -195,8 +195,8 @@ public class Tools {
         // MAIN MENU
         Inventory MainMenu = Bukkit.createInventory(new CeInventoryHolder(), 9, prefix + "Main Menu");
         ItemStack Enchantments = new ItemStack(Material.ENCHANTED_BOOK);
-        ItemStack Items = new ItemStack(Material.ENDER_PORTAL_FRAME);
-        ItemStack Runecrafting = new ItemStack(Material.ENCHANTMENT_TABLE);
+        ItemStack Items = new ItemStack(Material.END_PORTAL_FRAME);
+        ItemStack Runecrafting = new ItemStack(Material.ENCHANTING_TABLE);
 
         tempMeta.setDisplayName(itemPrefix + "Enchantments");
         tempLore.add(ChatColor.GRAY + "You see a set of magic Runes imprinted");

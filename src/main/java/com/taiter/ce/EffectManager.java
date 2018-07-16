@@ -31,6 +31,7 @@ public class EffectManager {
     private static Object[] particles;
 
     public EffectManager() {
+        /*
         try {
             effectConstructor = ReflectionHelper.getEffectPacketConstructor();
             particles = (Object[]) ReflectionHelper.loadEnumParticleValues();
@@ -38,7 +39,7 @@ public class EffectManager {
             Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "[CE] Could not load particle effects. ERROR:");
             e.printStackTrace();
 
-        }
+        }*/
     }
 
     public static void playSound(Location loc, Sound sound, float volume, float pitch) {

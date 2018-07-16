@@ -62,8 +62,8 @@ public class Shuffle extends CEnchantment {
 		target.teleport(pLoc);
 		p.teleport(tLoc);
 		
-		EffectManager.playSound(tLoc, Sound.ENTITY_ENDERMEN_TELEPORT, 0.4f, 2f);
-		EffectManager.playSound(pLoc, Sound.ENTITY_ENDERMEN_TELEPORT, 0.4f, 2f);
+		EffectManager.playSound(tLoc, Sound.ENTITY_ENDERMAN_TELEPORT, 0.4f, 2f);
+		EffectManager.playSound(pLoc, Sound.ENTITY_ENDERMAN_TELEPORT, 0.4f, 2f);
 
 		
 		for(int i = 10; i>0; i--) {

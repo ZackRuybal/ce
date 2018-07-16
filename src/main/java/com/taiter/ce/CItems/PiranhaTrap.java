@@ -83,7 +83,7 @@ public class PiranhaTrap extends CItem {
 				Location lo = player.getLocation().getBlock().getRelative(0,1,0).getLocation();
 				
 				for(int i = 0; i < FishAmount; i++) {
-					ItemStack tempFish = new ItemStack(Material.RAW_FISH, 1);
+					ItemStack tempFish = new ItemStack(Material.COD, 1);
 					ItemMeta im = tempFish.getItemMeta();
 					im.setDisplayName(i + "");
 					tempFish.setItemMeta(im);
