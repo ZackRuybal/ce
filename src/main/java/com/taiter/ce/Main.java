@@ -99,7 +99,6 @@ public final class Main extends JavaPlugin {
     public Boolean hasChecked = false;
     //------------------------------------------------------
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onEnable() {
         plugin = this;
@@ -167,7 +166,7 @@ public final class Main extends JavaPlugin {
         } catch (MalformedURLException e) {
         }
 
-        if (Boolean.parseBoolean(config.getString("Global.Updates.CheckOnStartup"))) {
+        /*if (Boolean.parseBoolean(config.getString("Global.Updates.CheckOnStartup"))) {
             this.getServer().getScheduler().scheduleAsyncDelayedTask(this, new BukkitRunnable() {
 
                 @Override
@@ -176,7 +175,7 @@ public final class Main extends JavaPlugin {
                         updateCheck();
                 }
             }, Integer.parseInt(config.getString("Global.Updates.CheckDelay")));
-        }
+        }*/
         new CEventHandler().runTaskTimer(this, 1, 7);
     }
 
@@ -185,7 +184,7 @@ public final class Main extends JavaPlugin {
         getServer().getScheduler().cancelTasks(plugin);
         for (CEnchantment c : EnchantManager.getEnchantments())
             if (c instanceof IceAspect)
-                for (HashMap<org.bukkit.block.Block, String> list : ((IceAspect) c).IceLists)
+                for (HashMap<String, HashMap> list : ((IceAspect) c).IceLists)
                     ((IceAspect) c).deleteIce(list);
     }
 

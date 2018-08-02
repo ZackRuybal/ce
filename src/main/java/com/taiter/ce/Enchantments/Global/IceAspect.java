@@ -25,6 +25,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -40,7 +41,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 
 public class IceAspect extends CEnchantment {
 
@@ -51,7 +51,7 @@ public class IceAspect extends CEnchantment {
     int chanceSpecialFreeze;
     boolean specialFreeze;
 
-    public List<HashMap<Block, String>> IceLists = new ArrayList<HashMap<Block, String>>();
+    public List<HashMap<String, HashMap>> IceLists = new ArrayList<>();
 
     public IceAspect(EnchantmentTarget app) {
         super(app);
@@ -86,7 +86,7 @@ public class IceAspect extends CEnchantment {
                         p = (Player) ((Projectile) event.getDamager()).getShooter();
 
                     Tools.addPotionEffect(ent, new PotionEffect(PotionEffectType.SLOW, SpecialFreezeDuration + 20, 10));
-                    final HashMap<Block, String> list = getIgloo(ent.getLocation(), 3, p);
+                    final HashMap<String, HashMap> list = getIgloo(ent.getLocation(), 3, p);
 
                     generateCooldown(p, getOriginalName(), SpecialFreezeDuration);
 
@@ -103,19 +103,20 @@ public class IceAspect extends CEnchantment {
         }
     }
 
-    @SuppressWarnings("deprecation")
-    public void deleteIce(HashMap<Block, String> list) {
-        for (Entry<Block, String> b : list.entrySet()) {
-            b.getKey().setType(Material.getMaterial(b.getValue().split(" ")[0]));
-            b.getKey().setData((byte) Integer.parseInt(b.getValue().split(" ")[1]));
-            b.getKey().removeMetadata("ce.Ice", getPlugin());
+    public void deleteIce(HashMap<String, HashMap> list) {
+        for (Object key : list.get("material").keySet()) {
+            Block block = ((Location) key).getBlock();
+            block.setType((Material) list.get("material").get(key));
+            block.setBlockData((BlockData) list.get("blockdata").get(key), false);
+            block.removeMetadata("ce.Ice", getPlugin());
         }
         IceLists.remove(list);
     }
 
-    @SuppressWarnings("deprecation")
-    private HashMap<Block, String> getIgloo(Location start, int size, Player p) {
-        HashMap<Block, String> list = new HashMap<Block, String>();
+    private HashMap<String, HashMap> getIgloo(Location start, int size, Player p) {
+        HashMap<String, HashMap> list = new HashMap<>();
+        list.put("material", new HashMap<Location, Material>());
+        list.put("blockdata", new HashMap<Location, BlockData>());
         int bx = start.getBlockX();
         int by = start.getBlockY();
         int bz = start.getBlockZ();
@@ -128,7 +129,8 @@ public class IceAspect extends CEnchantment {
                         org.bukkit.block.Block b = new Location(start.getWorld(), x, y, z).getBlock();
                         if ((b.getType() == Material.AIR || (!b.getType().equals(Material.CARROT) && !b.getType().equals(Material.POTATO) && !b.getType().equals(Material.WHEAT)
                                 && !b.getType().toString().contains("SIGN") && !b.getType().isSolid())) && Tools.checkWorldGuard(b.getLocation(), p, "PVP", false)) {
-                            list.put(b, b.getType().toString() + " " + b.getData());
+                            list.get("material").put(b.getLocation(), b.getType());
+                            list.get("blockdata").put(b.getLocation(), b.getBlockData());
                             b.setType(Material.ICE);
                             b.setMetadata("ce.Ice", new FixedMetadataValue(getPlugin(), null));
                         }

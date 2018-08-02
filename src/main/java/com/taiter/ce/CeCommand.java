@@ -18,13 +18,14 @@ package com.taiter.ce;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import com.taiter.ce.CItems.CItem;
+import com.taiter.ce.CItems.Swimsuit;
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Enchantments.EnchantManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -32,12 +33,10 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import com.taiter.ce.CItems.CItem;
-import com.taiter.ce.CItems.Swimsuit;
-import com.taiter.ce.Enchantments.CEnchantment;
-import com.taiter.ce.Enchantments.EnchantManager;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class CeCommand {
 
@@ -48,7 +47,6 @@ public class CeCommand {
         this.main = m;
     }
 
-    @SuppressWarnings("deprecation")
     public String processCommand(CommandSender sender, String[] args) {
 
         String Success = ChatColor.GREEN + "";
@@ -89,7 +87,7 @@ public class CeCommand {
 
                 return Success + "The Custom Enchantments config has been reloaded successfully.";
 
-            } else if (name.startsWith("u")) {
+            } /*else if (name.startsWith("u")) {
                 if (sender.equals(Bukkit.getConsoleSender())) {
 
                     usageError += "update <check/applyupdate>";
@@ -123,7 +121,7 @@ public class CeCommand {
                                     }, 6000l);
                                     return "";
                                 } else {
-                                    Main.plugin.getServer().getScheduler().scheduleAsyncDelayedTask(Main.plugin, new BukkitRunnable() {
+                                    Main.plugin.getServer().getScheduler().runTaskLaterAsynchronously(Main.plugin, new BukkitRunnable() {
 
                                         @Override
                                         public void run() {
@@ -146,7 +144,7 @@ public class CeCommand {
                     Error += "This command can only be run via Console";
                     return Error;
                 }
-            } else if (name.startsWith("g")) {
+            } */else if (name.startsWith("g")) {
 
                 requiredPermission += "give";
                 if (!sender.hasPermission(node) && !sender.hasPermission(requiredPermission) && !sender.isOp())
@@ -334,7 +332,7 @@ public class CeCommand {
                             int level = 0;
                             int index = 0;
                             int endIndex = 0;
-                            String enchName = e.getName().toLowerCase();
+                            String enchName = e.getKey().getKey();
 
                             if (fullString.contains(enchName)) {
 
@@ -361,7 +359,7 @@ public class CeCommand {
                                     enchName = finalName[0];
                                 }
                                 fullString = fullString.replace(enchName, "");
-                                enchants.add(e.getName() + " " + level);
+                                enchants.add(e.getKey().getKey() + " " + level);
                             }
                         }
                     }
@@ -422,7 +420,7 @@ public class CeCommand {
                     if (!enchants.isEmpty()) {
                         for (String e : enchants) {
                             String[] enchALvl = e.split(" ");
-                            Enchantment ench = Enchantment.getByName(enchALvl[0]);
+                            Enchantment ench = Enchantment.getByKey(NamespacedKey.minecraft(enchALvl[0]));
                             int level = 1;
                             try {
                                 level = Integer.parseInt(enchALvl[1]);
@@ -508,7 +506,7 @@ public class CeCommand {
                     requiredPermission += "remove";
                     if (!sender.hasPermission(node) && !sender.hasPermission(requiredPermission) && !sender.isOp())
                         return Error + "You do not have permission to use this command.";
-                    ItemStack item = ((Player) sender).getItemInHand();
+                    ItemStack item = ((Player) sender).getInventory().getItemInMainHand();
                     if (item == null || item.getType().equals(Material.AIR)) {
                         return Error + "You are not holding an item!";
                     }
@@ -545,7 +543,7 @@ public class CeCommand {
                     return "";
                 }
 
-                ItemStack item = p.getItemInHand();
+                ItemStack item = p.getInventory().getItemInMainHand();
 
                 if (name.startsWith("i") || name.startsWith("e")) {
 
@@ -562,7 +560,8 @@ public class CeCommand {
                         int start = 2;
                         test = Material.getMaterial(customName);
                         if (test != null) {
-                            if (p.getItemInHand().getType() != test)
+                            ItemStack hand = p.getInventory().getItemInMainHand();
+                            if (hand != null || hand.getType() != test)
                                 return Error + "You do not have the right material to enchant this!";
                             start++;
                             customName = args[2];
@@ -619,7 +618,7 @@ public class CeCommand {
                         if (custom == null) {
                             Enchantment ench = null;
                                 try {
-                                    ench = Enchantment.getByName(customName);
+                                    ench = Enchantment.getByKey(NamespacedKey.minecraft(customName));
                                 } catch (Exception ex) {
                                 }
 
@@ -628,10 +627,10 @@ public class CeCommand {
                                     int newLevel = item.getEnchantmentLevel(ench) + level;
                                     item.removeEnchantment(ench);
                                     item.addUnsafeEnchantment(ench, newLevel);
-                                    return Success + "You have succesfully increased the item's level of " + ench.getName() + " by " + level + ".";
+                                    return Success + "You have succesfully increased the item's level of " + ench.getKey().getKey() + " by " + level + ".";
                                 } else {
                                     item.addUnsafeEnchantment(ench, level);
-                                    return Success + "You have succesfully enchanted your item with " + ench.getName() + " level " + level + ".";
+                                    return Success + "You have succesfully enchanted your item with " + ench.getKey().getKey() + " level " + level + ".";
                                 }
 
                             Error += "The enchantment '" + customName + "' does not exist.";
@@ -640,7 +639,7 @@ public class CeCommand {
                         }
 
                         if (item.getType().equals(Material.BOOK) && custom instanceof CEnchantment) {
-                            p.setItemInHand(EnchantManager.getEnchantBook((CEnchantment) custom, level));
+                            p.getInventory().setItemInMainHand(EnchantManager.getEnchantBook((CEnchantment) custom, level));
 
                             return Success + "You have created an enchanted book with '" + custom.getDisplayName() + ChatColor.GREEN + "' level " + level + "!";
                         }
@@ -669,7 +668,7 @@ public class CeCommand {
                                             lore.set(i, custom.getDisplayName() + " " + EnchantManager.intToLevel(newLevel));
                                             im.setLore(lore);
                                             item.setItemMeta(im);
-                                            p.setItemInHand(item);
+                                            p.getInventory().setItemInMainHand(item);
                                             return (Success + "You have increased your item's level of " + custom.getDisplayName() + ChatColor.GREEN
                                                     + (newLevel == maxLevel ? " to " + maxLevel : " by " + level) + "!");
                                         }
@@ -688,7 +687,7 @@ public class CeCommand {
                         }
 
                         if (custom instanceof CEnchantment) {
-                            p.setItemInHand(EnchantManager.addEnchant(item, (CEnchantment) custom, level));
+                            p.getInventory().setItemInMainHand(EnchantManager.addEnchant(item, (CEnchantment) custom, level));
                             Success += "You have enchanted your item with '" + custom.getDisplayName() + ChatColor.GREEN + "' level " + level + "!";
                         } else if (custom instanceof CItem) {
                             ItemStack newItem = new ItemStack(((CItem) custom).getMaterial());

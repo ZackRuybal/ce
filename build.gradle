@@ -32,8 +32,10 @@ repositories {
 }
 
 dependencies {
-    compile 'org.spigotmc:spigot-api:1.13-pre7-R0.1-SNAPSHOT'
-    compile 'net.milkbowl.vault:VaultAPI:1.6'
+    compile 'org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT'
+    compile ('net.milkbowl.vault:VaultAPI:1.6') {
+        transitive = false
+    }
     compile 'com.sk89q.worldguard:worldguard-legacy:6.2'
 }
 compileJava {

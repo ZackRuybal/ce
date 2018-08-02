@@ -18,12 +18,13 @@ package com.taiter.ce.Enchantments.Global;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.taiter.ce.Enchantments.CEnchantment;
+import com.taiter.ce.Tools;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Container;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
@@ -33,8 +34,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.taiter.ce.Tools;
-import com.taiter.ce.Enchantments.CEnchantment;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Shockwave extends CEnchantment {
 
@@ -44,12 +45,13 @@ public class Shockwave extends CEnchantment {
     public Shockwave(EnchantmentTarget app) {
         super(app);
         configEntries.put("Cooldown", 200);
-        configEntries.put("ForbiddenMaterials",
-                "BEDROCK, WATER, STATIONARY_WATER, LAVA, STATIONARY_LAVA, CACTUS, CAKE_BLOCK, CROPS, TORCH, ENDER_PORTAL, PISTON_MOVING_PIECE, MELON_STEM, NETHER_WARTS, MOB_SPAWNER, CHEST, SIGN, WALL_SIGN, SIGN_POST, ITEM_FRAME");
+        configEntries.put("ForbiddenMaterials", Material.BEDROCK.name() + "," + Material.WATER.name() + "," + Material.LAVA.name() + "," +
+                Material.CACTUS.name() + "," + Material.CAKE.name() + "," + Material.WHEAT.name() + "," + Material.END_PORTAL.name() + "," +
+                Material.MOVING_PISTON.name() + "," + Material.MELON_STEM.name() + "," + Material.NETHER_WART.name() + "," + Material.SPAWNER.name() + "," +
+                Material.SIGN + "," + Material.WALL_SIGN + "," + Material.PLAYER_HEAD.name() + "," + Material.PLAYER_WALL_HEAD);
         triggers.add(Trigger.DAMAGE_GIVEN);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void effect(Event e, ItemStack item, final int level) {
 
@@ -71,13 +73,11 @@ public class Shockwave extends CEnchantment {
         for (final Location l : list) {
             final org.bukkit.block.Block block = l.getBlock();
             Material blockMat = block.getType();
-            if (!ForbiddenMaterials.contains(blockMat) && checkSurrounding(block)) {
-
+            if (!ForbiddenMaterials.contains(blockMat) && !(block.getState() instanceof Container) && checkSurrounding(block)) {
                 if (!Tools.checkWorldGuard(l, damager, "PVP", false))
                     return;
-                final Material mat = blockMat;
-                final byte matData = block.getData();
-                final FallingBlock b = l.getWorld().spawnFallingBlock(l, mat, block.getData());
+                final BlockData data = block.getBlockData();
+                final FallingBlock b = l.getWorld().spawnFallingBlock(l, data);
                 b.setDropItem(false);
                 b.setVelocity(new Vector(0, (0.5 + 0.1 * (list.indexOf(l))) + (level / 4), 0));
                 block.setType(Material.AIR);
@@ -91,8 +91,8 @@ public class Shockwave extends CEnchantment {
                         } else {
                             //if(finLoc.getBlock().getLocation() != l) 
                             finLoc.getBlock().setType(Material.AIR);
-                            block.setType(mat);
-                            block.setData(matData);
+                            block.setType(blockMat);
+                            block.setBlockData(data);
                             this.cancel();
                         }
                     }
@@ -123,7 +123,6 @@ public class Shockwave extends CEnchantment {
         return true;
     }
 
-    @SuppressWarnings("deprecation")
     private void makeList() {
         ForbiddenMaterials = new ArrayList<Material>();
         String mS = getConfig().getString("Enchantments." + getOriginalName() + ".ForbiddenMaterials");

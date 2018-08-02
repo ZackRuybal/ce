@@ -54,7 +54,6 @@ public class Bombardment extends CEnchantment {
 		triggers.add(Trigger.DAMAGE_GIVEN);
 	}
 
-	@SuppressWarnings("deprecation")
     @Override
 	public void effect(Event e, ItemStack item, final int level) {
 		if(e instanceof EntityDamageByEntityEvent) {
