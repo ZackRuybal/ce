@@ -53,7 +53,7 @@ public class LivefireBoots extends CItem {
 		  if(!Tools.checkWorldGuard(e.getTo(), player, "PVP", false))
 			  return false;
 		  
-		  if(b.getType().equals(Material.AIR)) {
+		  if(b.isEmpty()) {
 			b.setType(Material.FIRE);
 			new BukkitRunnable() {
 				@Override

@@ -81,7 +81,7 @@ public class Flamethrower extends CItem {
 			} else {
 				final List<Location> list = getLinePlayer(player, FireBlocksPerBurst);
 				for(final Location l: list) {
-					if(l.getBlock().getType().equals(Material.AIR))
+					if(l.getBlock().isEmpty())
 						l.getBlock().setType(Material.FIRE);
 					l.getWorld().playEffect(l, Effect.SMOKE, 20);
 					final FallingBlock fire = l.getWorld().spawnFallingBlock(l, Material.FIRE.createBlockData());

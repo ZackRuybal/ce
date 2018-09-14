@@ -76,7 +76,7 @@ public class BearTrap extends CItem {
 			b.getRelative(0,1,0).removeMetadata("ce.mine.secondary", main);
 			player.removeMetadata("ce.mine", main);
 			
-			if(!b.getType().equals(Material.AIR)) {
+			if(!b.isEmpty()) {
 				b.setType(Material.AIR);
 				if(CBasic.hasCooldown(player,Tools.BLEED_META_KEY) && player.hasPotionEffect(PotionEffectType.SLOW) && player.hasPotionEffect(PotionEffectType.WEAKNESS)) {
 					player.sendMessage(ChatColor.RED + "You walked into another Bear Trap! Are you kidding me?!");

@@ -5,7 +5,7 @@ targetCompatibility = 1.8
 
 ext.majorVersion = 2
 ext.minorVersion = "4c"
-ext.minecraftVersion = "1.13"
+ext.minecraftVersion = "1.13.1"
 
 repositories {
     jcenter()
@@ -13,11 +13,6 @@ repositories {
     maven {
         name 'Spigot'
         url 'https://hub.spigotmc.org/nexus/content/groups/public/'
-    }
-
-    maven {
-        name 'Sonatype'
-        url 'https://oss.sonatype.org/content/groups/public'
     }
     
     maven {
@@ -32,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT'
+    compile 'org.spigotmc:spigot-api:1.13.1-R0.1-SNAPSHOT'
     compile ('net.milkbowl.vault:VaultAPI:1.6') {
         transitive = false
     }

@@ -76,15 +76,16 @@ public class Tools {
         return null;
     }
 
-    public static Inventory getNextInventory(String name) {
+    public static Inventory getNextInventory(String name, Player player) {
         name = ChatColor.stripColor(name);
         if (name.equals("Enchantments"))
             return Main.CEEnchantmentMainMenu;
         else if (name.equals("Items"))
             return Main.CEItemMenu;
         else if (name.equals("Runecrafting")) {
-            Inventory einv = Bukkit.createInventory(new CeInventoryHolder(), InventoryType.FURNACE,
+            Inventory einv = Bukkit.createInventory(null, InventoryType.FURNACE,
                     ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "abc" + ChatColor.RESET + ChatColor.DARK_PURPLE + " Runecrafting " + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "cba");
+            CEListener.runecrafting.add(player.getUniqueId());
             return einv;
         } else if (name.equals("Global"))
             return Main.CEGlobalMenu;
@@ -122,7 +123,7 @@ public class Tools {
 
     public static Inventory getEnchantmentMenu(Player p, String name) {
         if (!p.isOp() && !p.hasPermission("ce.ench.*")) {
-            Inventory lInv = getNextInventory(name);
+            Inventory lInv = getNextInventory(name, p);
             Inventory enchantments = Bukkit.createInventory(new CeInventoryHolder(), lInv.getSize(), lInv.getTitle());
             enchantments.setContents(lInv.getContents());
             for (int i = 0; i < enchantments.getSize() - 2; i++) {
@@ -148,7 +149,7 @@ public class Tools {
             return enchantments;
         }
 
-        return getNextInventory(name);
+        return getNextInventory(name, p);
     }
 
     public static Inventory getItemMenu(Player p) {

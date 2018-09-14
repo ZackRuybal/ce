@@ -99,7 +99,7 @@ public class PiranhaTrap extends CItem {
 				b.removeMetadata("ce.mine", main);
 				b.getRelative(0,1,0).removeMetadata("ce.mine.secondary", main);
 				player.removeMetadata("ce.mine", main);
-				if(!b.getType().equals(Material.AIR)) {
+				if(!b.isEmpty()) {
 					b.setType(Material.AIR);
 
 

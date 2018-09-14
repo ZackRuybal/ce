@@ -29,10 +29,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /*
  * This file is part of Custom Enchantments
@@ -199,7 +196,7 @@ public class CEventHandler extends BukkitRunnable{
                 b = new Location(toCheck.getWorld(), Integer.parseInt(s[0]), Integer.parseInt(s[1]), Integer.parseInt(s[2])).getBlock();
             }
 
-            if (b.getType().equals(Material.AIR)) {
+            if (b.isEmpty()) {
                 b.removeMetadata("ce.mine", Main.plugin);
                 Block[] blocks = { b.getRelative(0, 1, 0), b.getRelative(1, 0, 0), b.getRelative(-1, 0, 0), b.getRelative(0, 0, 1), b.getRelative(0, 0, -1) };
 
@@ -510,12 +507,12 @@ public class CEventHandler extends BukkitRunnable{
                             public void run() {
                                 if (counter <= 0) {
                                     inv.setItem(2, new ItemStack(Material.AIR));
-                                    if (p.getOpenInventory() != null && p.getOpenInventory().getTitle().equals(ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "abc" + ChatColor.RESET
-                                            + ChatColor.DARK_PURPLE + " Runecrafting " + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "cba"))
+                                    if (p.getOpenInventory() != null && p.getOpenInventory().getTitle().equals("§d§kabc§5 Runecrafting §d§kcba"))
                                         p.setItemOnCursor(result);
                                     else
                                         p.getInventory().addItem(result);
                                     this.cancel();
+                                    CEListener.runecrafting.remove(p.getUniqueId());
                                     return;
                                 }
                                 EffectManager.sendEffect(targets, Particle.SPELL_MOB, p.getLocation(), new Vector(Math.random() * 2 - 1, Math.random() * 2 - 1, Math.random() * 2 - 1), 1, 100);

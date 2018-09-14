@@ -127,7 +127,7 @@ public class IceAspect extends CEnchantment {
                     double distancesquared = (bx - x) * (bx - x) + ((bz - z) * (bz - z)) + ((by - y) * (by - y));
                     if (distancesquared < (size * size) && distancesquared >= ((size - 1) * (size - 1))) {
                         org.bukkit.block.Block b = new Location(start.getWorld(), x, y, z).getBlock();
-                        if ((b.getType() == Material.AIR || (!b.getType().equals(Material.CARROT) && !b.getType().equals(Material.POTATO) && !b.getType().equals(Material.WHEAT)
+                        if ((b.isEmpty()|| (!b.getType().equals(Material.CARROT) && !b.getType().equals(Material.POTATO) && !b.getType().equals(Material.WHEAT)
                                 && !b.getType().toString().contains("SIGN") && !b.getType().isSolid())) && Tools.checkWorldGuard(b.getLocation(), p, "PVP", false)) {
                             list.get("material").put(b.getLocation(), b.getType());
                             list.get("blockdata").put(b.getLocation(), b.getBlockData());

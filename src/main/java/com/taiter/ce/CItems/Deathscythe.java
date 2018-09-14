@@ -92,7 +92,7 @@ public class Deathscythe extends CItem {
 			
 		for(int i = 1; i < Range; i++) {
 			loc = player.getTargetBlock((Set<Material>)null, i).getLocation();
-			if(!loc.getBlock().getType().equals(Material.AIR))
+			if(!loc.getBlock().isEmpty())
 				return true;
 			loc.getWorld().playEffect(loc, Effect.SMOKE, Range*2);
 

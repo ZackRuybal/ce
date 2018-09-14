@@ -71,6 +71,7 @@ public class CEListener implements Listener {
     HashSet<CBasic> wearItem = new HashSet<CBasic>();
 
     private boolean useRuneCrafting = Main.plugin.getConfig().getBoolean("Global.Runecrafting.Enabled");
+    public static Set<UUID> runecrafting = new HashSet<>();
 
     public static Set<UUID> projectiles = new HashSet<>();
     
@@ -96,8 +97,8 @@ public class CEListener implements Listener {
             if (event.getView().getTopInventory().getTitle().startsWith("CE")) {
                 event.setCancelled(true);
             } else if (useRuneCrafting) {
-                if (event.getView().getTopInventory().getName().equals(
-                        ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "abc" + ChatColor.RESET + ChatColor.DARK_PURPLE + " Runecrafting " + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "cba")) {
+                if (event.getView().getTopInventory().getHolder() == null && runecrafting.contains(event.getWhoClicked().getUniqueId()) &&
+                        event.getView().getTopInventory().getName().equals("§d§kabc§5 Runecrafting §d§kcba")) {
                     CEventHandler.updateRunecraftingInventory(event.getInventory());
                     return;
                 }
@@ -114,9 +115,10 @@ public class CEListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void inventoryClose(InventoryCloseEvent event) {
-        if (event.getInventory().getHolder() instanceof CeInventoryHolder
+        if (event.getView().getTopInventory().getHolder() == null && runecrafting.contains(event.getPlayer().getUniqueId())
                 && event.getInventory().getName()
-                .equals(ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "abc" + ChatColor.RESET + ChatColor.DARK_PURPLE + " Runecrafting " + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "cba")) {
+                .equals("§d§kabc§5 Runecrafting §d§kcba")) {
+            runecrafting.remove(event.getPlayer().getUniqueId());
             ItemStack[] contents = event.getInventory().getContents();
             HumanEntity p = event.getPlayer();
             Location loc = p.getLocation().add(0, 1.25, 0);
@@ -140,9 +142,8 @@ public class CEListener implements Listener {
             return;
 
         if (useRuneCrafting)
-            if (event.getView().getTopInventory().getHolder() instanceof CeInventoryHolder
-                    && event.getView().getTopInventory().getName().equals(
-                    ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "abc" + ChatColor.RESET + ChatColor.DARK_PURPLE + " Runecrafting " + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "cba")) {
+            if (event.getView().getTopInventory().getHolder() == null && runecrafting.contains(event.getWhoClicked().getUniqueId())
+                    && event.getView().getTopInventory().getName().equals("§d§kabc§5 Runecrafting §d§kcba")) {
                 CEventHandler.handleRunecrafting(event);
                 return;
             }
@@ -205,7 +206,7 @@ public class CEListener implements Listener {
                     } else if (event.getRawSlot() == 6) {
                         if (p.hasPermission("ce.*") || p.hasPermission("ce.runecrafting")) {
                             p.closeInventory();
-                            p.openInventory(Tools.getNextInventory(clickedItem.getItemMeta().getDisplayName()));
+                            p.openInventory(Tools.getNextInventory(clickedItem.getItemMeta().getDisplayName(), p));
                             return;
                         } else {
                             p.sendMessage(ChatColor.RED + "You do not have permission to use this!");
@@ -345,7 +346,7 @@ public class CEListener implements Listener {
 
                 p.closeInventory();
                 try {
-                    p.openInventory(Tools.getNextInventory(clickedItem.getItemMeta().getDisplayName()));
+                    p.openInventory(Tools.getNextInventory(clickedItem.getItemMeta().getDisplayName(), p));
                 } catch (Exception e) {
                     p.sendMessage(ChatColor.RED + "This feature is not yet implemented.");
                 }
@@ -506,9 +507,10 @@ public class CEListener implements Listener {
                             return;
                         e.setCancelled(true);
                         p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
-                        Inventory einv = Bukkit.createInventory(new CeInventoryHolder(), InventoryType.FURNACE, ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "abc" + ChatColor.RESET + ChatColor.DARK_PURPLE
+                        Inventory einv = Bukkit.createInventory(null, InventoryType.FURNACE, ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "abc" + ChatColor.RESET + ChatColor.DARK_PURPLE
                                 + " Runecrafting " + ChatColor.LIGHT_PURPLE + "" + ChatColor.MAGIC + "cba");
                         einv.setContents(new ItemStack[] { new ItemStack(Material.AIR), i, new ItemStack(Material.AIR) });
+                        runecrafting.add(p.getUniqueId());
                         p.openInventory(einv);
                         return;
                     }

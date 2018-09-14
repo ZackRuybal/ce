@@ -109,7 +109,7 @@ public class RocketBoots extends CItem {
 							if(player.isFlying()) {
 								player.setFlying(false);
 							}
-							if(loc.getBlock().getRelative(0,-1,0).getType().equals(Material.AIR) && !player.getAllowFlight()) {
+							if(loc.getBlock().getRelative(0,-1,0).isEmpty() && !player.getAllowFlight()) {
 								player.setAllowFlight(true);
 							} else {
 								player.setAllowFlight(false);
