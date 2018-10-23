@@ -18,11 +18,13 @@ package com.taiter.ce;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-import com.sk89q.worldguard.bukkit.RegionContainer;
-import com.sk89q.worldguard.bukkit.RegionQuery;
-import com.sk89q.worldguard.protection.flags.DefaultFlag;
-import com.sk89q.worldguard.protection.flags.Flag;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.protection.flags.Flags;
 import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
 import com.taiter.ce.CBasic.Trigger;
 import com.taiter.ce.CItems.CItem;
 import com.taiter.ce.Enchantments.CEnchantment;
@@ -459,29 +461,25 @@ public class Tools {
                 getAppropriateList(t).add(ci);
     }
 
-    public static boolean checkWorldGuard(Location l, Player p, String fs, boolean sendMessage) {
+    public static boolean checkWorldGuard(Location l, Player p, StateFlag f, boolean sendMessage) {
         if (p.isOp())
             return true;
 
         if (Main.getWorldGuard() != null) {
-            RegionContainer grm = Main.getWorldGuard().getRegionContainer();
+            RegionContainer grm = WorldGuard.getInstance().getPlatform().getRegionContainer();
 
             if (grm == null)
                 return true;
             RegionQuery query = grm.createQuery();
-            StateFlag f = null;
-            query.testState(l, p, DefaultFlag.BUILD);
-            for (Flag<?> df : DefaultFlag.flagsList)
-                if (fs.equalsIgnoreCase(df.getName()))
-                    f = (StateFlag) df;
-
-            if (f.equals(DefaultFlag.BUILD)) {
-                if (!query.testState(l, p, DefaultFlag.BUILD)) {
+            com.sk89q.worldedit.util.Location weLoc = BukkitAdapter.adapt(l.getBlock().getLocation());
+            LocalPlayer lp = Main.getWorldGuard().wrapPlayer(p, true);
+            if (Flags.BUILD.equals(f)) {
+                if (!query.testState(weLoc, lp, Flags.BUILD)) {
                     if (sendMessage)
                         p.sendMessage(ChatColor.RED + "You cannot use this here!");
                     return false;
                 }
-            } else if (!query.testState(l, p, f)) {
+            } else if (!query.testState(weLoc, lp, f)) {
                 if (sendMessage)
                     p.sendMessage(ChatColor.RED + "You cannot use this here!");
                 return false;

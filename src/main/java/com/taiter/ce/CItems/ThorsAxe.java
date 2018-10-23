@@ -19,6 +19,7 @@ package com.taiter.ce.CItems;
 */
 
 
+import com.sk89q.worldguard.protection.flags.Flags;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -49,23 +50,23 @@ public class ThorsAxe extends CItem {
 					if(e.getClickedBlock() != null) {
 						Location loc = e.getClickedBlock().getLocation();
 						loc.setY(loc.getY() +1);
-					if(Tools.checkWorldGuard(loc, player, "PVP", true)) {
+					if(Tools.checkWorldGuard(loc, player, Flags.PVP, true)) {
 						player.getWorld().strikeLightning(loc);
 						if(loc.getBlock().isEmpty()) {
 							loc.getBlock().setType(Material.FIRE);
 						}
 						loc.setX(loc.getX() +1);
-						if(loc.getBlock().isEmpty() && Tools.checkWorldGuard(loc, player, "PVP", false)) 
+						if(loc.getBlock().isEmpty() && Tools.checkWorldGuard(loc, player, Flags.PVP, false)) 
 							loc.getBlock().setType(Material.FIRE);
 						loc.setX(loc.getX() -2);
-						if(loc.getBlock().isEmpty() && Tools.checkWorldGuard(loc, player, "PVP", false)) 
+						if(loc.getBlock().isEmpty() && Tools.checkWorldGuard(loc, player, Flags.PVP, false)) 
 							loc.getBlock().setType(Material.FIRE);
 						loc.setX(loc.getX() +1);
 						loc.setZ(loc.getZ() +1);
-						if(loc.getBlock().isEmpty() && Tools.checkWorldGuard(loc, player, "PVP", false)) 
+						if(loc.getBlock().isEmpty() && Tools.checkWorldGuard(loc, player, Flags.PVP, false)) 
 							loc.getBlock().setType(Material.FIRE);
 						loc.setZ(loc.getZ() -2);
-						if(loc.getBlock().isEmpty() && Tools.checkWorldGuard(loc, player, "PVP", false)) 
+						if(loc.getBlock().isEmpty() && Tools.checkWorldGuard(loc, player, Flags.PVP, false)) 
 							loc.getBlock().setType(Material.FIRE);
 					
 						EffectManager.playSound(e.getClickedBlock().getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 0.75f, 1f);

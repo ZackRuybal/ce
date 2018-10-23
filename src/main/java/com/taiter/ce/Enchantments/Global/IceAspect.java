@@ -18,6 +18,7 @@ package com.taiter.ce.Enchantments.Global;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+import com.sk89q.worldguard.protection.flags.Flags;
 import com.taiter.ce.EffectManager;
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
@@ -128,7 +129,7 @@ public class IceAspect extends CEnchantment {
                     if (distancesquared < (size * size) && distancesquared >= ((size - 1) * (size - 1))) {
                         org.bukkit.block.Block b = new Location(start.getWorld(), x, y, z).getBlock();
                         if ((b.isEmpty()|| (!b.getType().equals(Material.CARROT) && !b.getType().equals(Material.POTATO) && !b.getType().equals(Material.WHEAT)
-                                && !b.getType().toString().contains("SIGN") && !b.getType().isSolid())) && Tools.checkWorldGuard(b.getLocation(), p, "PVP", false)) {
+                                && !b.getType().toString().contains("SIGN") && !b.getType().isSolid())) && Tools.checkWorldGuard(b.getLocation(), p, Flags.PVP, false)) {
                             list.get("material").put(b.getLocation(), b.getType());
                             list.get("blockdata").put(b.getLocation(), b.getBlockData());
                             b.setType(Material.ICE);

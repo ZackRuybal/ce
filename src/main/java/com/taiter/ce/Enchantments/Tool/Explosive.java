@@ -18,6 +18,7 @@ package com.taiter.ce.Enchantments.Tool;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+import com.sk89q.worldguard.protection.flags.Flags;
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
 import org.bukkit.Location;
@@ -84,7 +85,7 @@ public class Explosive extends CEnchantment {
 
             if (isUsable(iMat, bMat))
                 if (!loc.getBlock().getDrops(item).isEmpty())
-                    if (Tools.checkWorldGuard(loc, player, "BUILD", false))
+                    if (Tools.checkWorldGuard(loc, player, Flags.BUILD, false))
                         if (DropItems)
                             loc.getBlock().breakNaturally(item);
                         else

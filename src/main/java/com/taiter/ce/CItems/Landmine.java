@@ -20,6 +20,7 @@ package com.taiter.ce.CItems;
 
 
 
+import com.sk89q.worldguard.protection.flags.Flags;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -68,7 +69,7 @@ public class Landmine extends CItem {
 			b.getRelative(0,1,0).removeMetadata("ce.mine.secondary", main);
 			player.removeMetadata("ce.mine", main);
 			
-			if(!b.isEmpty() && !b.isLiquid() && Tools.checkWorldGuard(loc, player, "PVP", false)) { 
+			if(!b.isEmpty() && !b.isLiquid() && Tools.checkWorldGuard(loc, player, Flags.PVP, false)) { 
 				b.setType(Material.AIR);
 				if(Main.createExplosions)
 					w.createExplosion(loc, ExplosionStrength);

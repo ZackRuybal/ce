@@ -18,6 +18,7 @@ package com.taiter.ce.Enchantments.Global;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+import com.sk89q.worldguard.protection.flags.Flags;
 import com.taiter.ce.Enchantments.CEnchantment;
 import com.taiter.ce.Tools;
 import org.bukkit.Effect;
@@ -74,7 +75,7 @@ public class Shockwave extends CEnchantment {
             final org.bukkit.block.Block block = l.getBlock();
             Material blockMat = block.getType();
             if (!ForbiddenMaterials.contains(blockMat) && !(block.getState() instanceof Container) && checkSurrounding(block)) {
-                if (!Tools.checkWorldGuard(l, damager, "PVP", false))
+                if (!Tools.checkWorldGuard(l, damager, Flags.PVP, false))
                     return;
                 final BlockData data = block.getBlockData();
                 final FallingBlock b = l.getWorld().spawnFallingBlock(l, data);

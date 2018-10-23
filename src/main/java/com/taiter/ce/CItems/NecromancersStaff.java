@@ -18,6 +18,7 @@ package com.taiter.ce.CItems;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
+import com.sk89q.worldguard.protection.flags.Flags;
 import com.taiter.ce.EffectManager;
 import com.taiter.ce.Main;
 import com.taiter.ce.Tools;
@@ -123,7 +124,7 @@ public class NecromancersStaff extends CItem {
 
                 // Apply effect
                 if (spell == 0) {
-                    if (Tools.checkWorldGuard(l, player, "PVP", true)) {
+                    if (Tools.checkWorldGuard(l, player, Flags.PVP, true)) {
                         WitherSkull ws = player.launchProjectile(WitherSkull.class);
                         ws.setVelocity(l.getDirection().multiply(2));
                         if (!Main.createExplosions)
@@ -138,7 +139,7 @@ public class NecromancersStaff extends CItem {
                 } else if (spell == 2) {
                     Location target = player.getTargetBlock((Set<Material>) null, 20).getLocation();
                     player.getWorld().strikeLightning(target);
-                    if (Tools.checkWorldGuard(l, player, "TNT", true))
+                    if (Tools.checkWorldGuard(l, player, Flags.TNT, true))
                         player.getWorld().createExplosion(target, 1);
                     EffectManager.playSound(target, Sound.ENTITY_ENDER_DRAGON_GROWL, 0.5f, 2f);
                 }

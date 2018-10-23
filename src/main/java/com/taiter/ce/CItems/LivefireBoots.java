@@ -19,6 +19,7 @@ package com.taiter.ce.CItems;
 */
 
 
+import com.sk89q.worldguard.protection.flags.Flags;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -50,7 +51,7 @@ public class LivefireBoots extends CItem {
 		  final PlayerMoveEvent e = (PlayerMoveEvent) event;
 		  final Block b = e.getTo().getBlock();
 		  		  
-		  if(!Tools.checkWorldGuard(e.getTo(), player, "PVP", false))
+		  if(!Tools.checkWorldGuard(e.getTo(), player, Flags.PVP, false))
 			  return false;
 		  
 		  if(b.isEmpty()) {

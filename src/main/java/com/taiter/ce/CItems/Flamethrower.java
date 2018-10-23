@@ -22,6 +22,7 @@ package com.taiter.ce.CItems;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sk89q.worldguard.protection.flags.Flags;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
@@ -94,7 +95,7 @@ public class Flamethrower extends CItem {
 							list.add(fire.getLocation());
 							this.cancel();
 						} else {
-							if(!Tools.checkWorldGuard(fire.getLocation(), player, "BUILD", true) || fire.getLocation().getBlock().getType().equals(Material.WATER)) {
+							if(!Tools.checkWorldGuard(fire.getLocation(), player, Flags.BUILD, true) || fire.getLocation().getBlock().getType().equals(Material.WATER)) {
 								fire.getWorld().playEffect(fire.getLocation(), Effect.EXTINGUISH, 60);
 								fire.remove();
 								this.cancel();
